@@ -1,0 +1,295 @@
+
+{% extends 'base.html'%}
+
+  {% block title %}<title>TestWeek</title>{% endblock title %}
+
+
+  {% block content %}
+   <div class="page">
+      <div class="main" style="text-align: center;">
+
+         <!-- <h1 style="color:White;">Welcome to Test Page</h1> -->
+         <!-- <h1>Welcome to Test Page</h1> -->
+         <!-- {% for i in people %}
+
+         <p>User name is : {{i.username}}</p>
+         <p>Email is :{{i.email}}</p>
+         <a class="btn btn-primary" href="/post-details/{{i.id}}" role="button">See More</a>
+         
+
+         {% endfor %}-->
+         <!-- <h1>เลือกช่วงเวลา</h1> -->
+          <div class="box">
+            <div class="test2">
+            <form action="{{ url_for('test')}}" method="post">
+               <label for="startday">เลือกช่วงเวลา เริ่ม:</label>
+               
+               <input type="date" id="startday" name="startday" value={{minday}} min={{minday}} max={{maxday}}>
+               
+               <label for="startday">ถึง: </label>
+               
+               <input type="date" id="endday" name="endday" value={{maxday}} min={{minday}} max={{maxday}}>
+               <input type="submit">
+            </form>
+            </div>
+
+            <div class="row">
+               
+               <!-- <div class="column" style="background-color:#aaa;"> -->
+              <div class="column">
+                  <h2>เครื่อง 1</h2>
+
+                  <div class="column a">
+                    <h3>Machine : 1</h3>
+                    <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                  </div>
+
+                  <!-- Performance -->
+                  <div class="column b" >
+                    <h4>Performance</h4>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                      <div class="column c" >
+                        <!-- {{per.Performance}} -->
+                        {% for i in per%}
+                        <p id="percent"> /19 ton/h </p>
+                        
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: {{i.Performance}};" aria-valuenow="{{i.Performance}}" aria-valuemin="0" aria-valuemax="19">{{i.Performance}}</div>
+                        </div>
+
+                        <div class="skill-bar">
+                          <div class="skill-per" per={{i.Performance}}></div>
+                        </div>
+                        
+                        <progress id="myProgress" value={{i.Performance}} max="19">
+                        </progress>
+
+                        <script type="text/javascript">
+                          document.getElementById("percent").innerHTML = ({{i.Performance}}/19)*100;
+                          <!-- output.innerHTML = text; -->
+                        </script>
+                        {% endfor %}
+                        
+                        <p>Status bar</br>>14Kwh/t </p>
+                        <p>Status bar</br>Full load 420 Amp </p>
+                        <p>Status bar</p>
+
+                        <script>
+                          $('.skill-per').each(function(){
+                            var $this = $(this);
+                            var per = $this.attr('per');
+                            $this.css("width",per+'%');
+                            $({animatedValue: 0}).animate({animatedValue: per},{
+                              duration: 1000,
+                              step: function(){
+                                $this.attr('per', Math.floor(this.animatedValue) + '%');
+                              },
+                              complete: function(){
+                                $this.attr('per', Math.floor(this.animatedValue) + '%');
+                              }
+                            });
+                          });
+                        </script>
+                      </div>
+
+                  <!-- Steam -->
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Steam</h4>
+
+                    
+
+                    <div class="column c" >
+                      <p>Steam Consumtion</p>
+                      <p>Pressure</p>
+
+                    </div>
+
+                    <div class="column c" >
+                      <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                    </div>
+
+                  </div>
+
+                  <!-- Spare Part -->
+                  <div class="column b" >
+                    <h4>Spare Part</h4>
+                    
+                    
+
+                    <div class="column cd" >
+                      <p>Die Aging : </p>
+                      <p>Die press </p>
+                      <p>Die Repair.</p>
+                    </div>
+
+                    <div class="column cd" >
+                      <p>Die Aging : </p>
+                      <p>Die press </p>
+                      <p>Die Repair.</p>
+                    </div>
+
+                    <div class="column d" >
+                      <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                    </div>
+
+
+                  </div>
+
+
+               </div>
+               
+               
+                <div class="column">
+                  <h2>เครื่อง 2</h2>
+
+                  <div class="column a">
+                    <h3>Machine : 2</h3>
+                    <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Performance</h4>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                    <!-- <img class="column img" src="/static/image/doggo.jpg"   alt="doggo"> -->
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Steam</h4>
+
+                    <div class="column c" >
+                      <p>Performance Cap.</br>19 ton/h </p>
+                      <p>Electrical cons TG.</br>>14Kwh/t </p>
+                      <p>Motor current.</br>Full load 420 Amp </p>
+                      <p>% Load </p>
+                    </div>
+
+                    <div class="column c" >
+                      <p>Performance Cap.</br>19 ton/h </p>
+                      <p>Electrical cons TG.</br>>14Kwh/t </p>
+                      <p>Motor current.</br>Full load 420 Amp </p>
+                      <p>% Load </p>
+                    </div>
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Spare Part</h4>
+                    
+                    <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+                  </div>
+
+
+               </div>
+
+
+               <!-- <div class="column" style="background-color:#ccc;"> -->
+                <div class="column">
+                  <h2>เครื่อง 3</h2>
+
+                  <div class="column a">
+                    <h3>Machine : 3</h3>
+                    <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Performance</h4>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                    <!-- <img class="column img" src="/static/image/doggo.jpg"   alt="doggo"> -->
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Steam</h4>
+
+                    <div class="column c" >
+                      <p>Performance Cap.</br>19 ton/h </p>
+                      <p>Electrical cons TG.</br>>14Kwh/t </p>
+                      <p>Motor current.</br>Full load 420 Amp </p>
+                      <p>% Load </p>
+                    </div>
+
+                    <div class="column c" >
+                      <p>Performance Cap.</br>19 ton/h </p>
+                      <p>Electrical cons TG.</br>>14Kwh/t </p>
+                      <p>Motor current.</br>Full load 420 Amp </p>
+                      <p>% Load </p>
+                    </div>
+                  </div>
+
+                  <div class="column b" >
+                    <h4>Spare Part</h4>
+                    
+                    <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+
+                      <div class="column c" >
+                        <p>Performance Cap.</br>19 ton/h </p>
+                        <p>Electrical cons TG.</br>>14Kwh/t </p>
+                        <p>Motor current.</br>Full load 420 Amp </p>
+                        <p>% Load </p>
+                      </div>
+                  </div>
+
+
+               </div>
+
+            </div>
+          </div>
+
+      </div>
+   </div>
+  </div>
+
+  {% endblock content %}
+ 

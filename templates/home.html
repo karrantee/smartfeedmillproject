@@ -1,0 +1,159 @@
+
+{% extends 'base.html'%}
+
+{% block title %}<title>Real Time</title>{% endblock title %}
+
+
+{% block content %}
+    <div class="page" >
+
+        <div class="main">
+   
+            <div class="box" style="height: 850px;">
+       
+                <div class="row">
+                
+                    <div class="column" style="width: 30%;" >
+       
+                            <form style="padding-left:10px; padding-top:10px; width=200px;"> 
+                                <label for="machine" style="font-size: 24px;">เลือกเครื่องจักร :</label>
+                                <select name="machine" id="machine" style="font-size: 20px;">
+                                  <option value="1">เครื่อง 1</option>
+                                  <option value="2">เครื่อง 2</option>
+                                  <option value="3">เครื่อง 3</option>
+                                  <option value="4">เครื่อง 4</option>
+                                  <option value="5">เครื่อง 5</option>
+                                  <option value="6">เครื่อง 6</option>
+                                </select>
+                                <input type="submit" value="Submit">
+                            </br>
+                                <label for="formula" style="font-size: 20px;">สูตร : <output name="formula"></output></label>
+                            </br>
+                                <label for="ะรทำ" style="font-size: 20px;">เวลา : <output name="formula"></output></label>
+                            </br>
+                                <label for="perofrmance" style="font-size: 20px;">ประสิทธิภาพ : <output name="formula"></output></label>
+                            </br>
+                                <label for="electcon" style="font-size: 20px;">ไฟฟ้า : <output name="formula"></output></label>
+                            </br>
+                                <label for="motor" style="font-size: 20px;">Motor : <output name="formula"></output></label>
+                            </br>
+                            </form>
+                    
+                        <div class="column" style="height: 100px; padding-left:10px">
+                            <h5>Machine : PL1</h5>
+                            <img src="/static/image/long.jpg"  alt="long" style="width:120px; height:360px; margin:50px 50px;">
+                        </div>
+                    </div>  
+
+                    <div class="column" style="width:35%">
+                        <!-- Performance -->
+                        <div class="column b" style="padding-bottom:50px;" >
+
+                            <h4>Performance</h4>
+        
+                            <div class="column c" style="width: 50%;">
+                                <p>Performance Cap.</br>19 ton/h </p>
+                                <p>Electrical cons TG.</br>>14Kwh/t </p>
+                                <p>Motor current.</br>Full load 420 Amp </p>
+                                <p>% Load </p>
+                            </div>
+        
+                            <div class="column c"  style="width: 50%;">
+                                {% for i in per%}
+                                <p>{{i.Performance}}</br> 19 ton/h </p>
+                                {% endfor %}
+                                <p>Status bar</br>>14Kwh/t </p>
+                                <p>Status bar</br>Full load 420 Amp </p>
+                                <p>Status bar</p>
+                            </div>
+
+                        
+       
+                            
+                            <div class="column b" style="width: 100%;" >
+                                <h4>Steam</h4>
+            
+                                <div class="column c" >
+                                    <p>Steam Consumtion</p>
+                                    <p>Pressure</p>
+                                </div>
+            
+                                <div class="column c" >
+                                    <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                                </div>
+                            </div>
+
+                            <div class="column b" style="width: 100%;" >
+                                <h4>Steam</h4>
+            
+                                <div class="column c" >
+                                    <p>Steam Consumtion</p>
+                                    <p>Pressure</p>
+                                </div>
+            
+                                <div class="column c" >
+                                    <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                        
+                    </div>
+
+                    <div class="column" style="width:35%">
+
+                       
+                        <!-- Performance -->
+                        <div class="column b" style="padding-bottom:50px;" >
+                            <h4>Performance</h4>
+                            
+        
+                            <div class="column c" style="width: 150%;">
+                                <p>Performance Cap.</br>19 ton/h </p>
+                                <p>Electrical cons TG.</br>>14Kwh/t </p>
+                                <p>Motor current.</br>Full load 420 Amp </p>
+                                <p>% Load </p>
+                            </div>
+        
+                            <div class="column c"  style="width: 50%;">
+                                {% for i in per%}
+                                <p>{{i.Performance}}</br> 19 ton/h </p>
+                                {% endfor %}
+                                <p>Status bar</br>>14Kwh/t </p>
+                                <p>Status bar</br>Full load 420 Amp </p>
+                                <p>Status bar</p>
+                            </div>
+
+                        
+       
+                            
+                            <div class="column b" style="width: 100%;" >
+                                <h4>Steam</h4>
+            
+                                <div class="column c" >
+                                    <p>Steam Consumtion</p>
+                                    <p>Pressure</p>
+                                </div>
+            
+                                <div class="column c" >
+                                    <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                                </div>
+                            </div>
+                            
+                            
+
+                        </div>
+                        
+                    </div>
+       
+                </div>
+
+            </div>
+       
+        </div>
+
+    </div>      
+
+{% endblock content %}
+
