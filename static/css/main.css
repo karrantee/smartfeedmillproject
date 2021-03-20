@@ -314,6 +314,9 @@ body{
     height: 30px;
   }
 
+  .column .a p {
+    margin-right: 20px;
+  }
   
   /* Clear floats after the columns */
   .row:after {
