@@ -90,7 +90,7 @@ def testday():
 
 
     db.commit()
-    db.close()
+    # db.close()
     # print(startday) 
     # print(endday)
     # print(per)
