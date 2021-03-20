@@ -95,7 +95,7 @@ def testday():
     # print(endday)
     # print(per)
     print(atday)
-    print(formula)
+    # print(formula)
 
     # print(percent)
 
@@ -106,6 +106,7 @@ def testday():
 
 @app.route('/testweek', methods=["POST", "GET"])
 def testweek():
+    
     startday=request.form.get("startday")
     endday=request.form.get("endday")
     per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
@@ -200,26 +201,39 @@ def machine46():
     return render_template("machine46.html",per46=per46,maxday=maxday,minday=minday)
 
 
-@app.route('/machine13day')
+@app.route('/machine13day', methods=["POST", "GET"])
 def machine13day():
 
-    startday13=request.form.get("startday13")
-    endday13=request.form.get("endday13")
-    per13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday13 AND :endday13 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
-    
+    atday=request.form.get("atday")
+    atday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"atday":atday})
+   
+
+    startday=request.form.get("startday")
+    endday=request.form.get("endday")
+    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
     # per = per.first()[0]
 
-    minday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
-    minday13 = minday13.first()[0]
+    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = minday.first()[0]
     # print(minday)
 
-    maxday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
-    maxday13 = maxday13.first()[0]
+    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = maxday.first()[0]
+    # print(maxday)
+
+    percent=request.form.get("percent")
+
+    db.commit()
+    # print(startday) 
+    # print(endday)
+    # print(per)
+    # print(percent)
+    print(atday)
 
     
-    return render_template("machine13.html",per13=per13,maxday13=maxday13,minday13=minday13)
+    return render_template("machine13day.html",per=per,maxday=maxday,minday=minday,percent=percent,atday=atday)
     
-@app.route('/machine13week')
+@app.route('/machine13week', methods=["POST", "GET"])
 def machine13week():
 
     startday13=request.form.get("startday13")
@@ -236,9 +250,9 @@ def machine13week():
     maxday13 = maxday13.first()[0]
 
     
-    return render_template("machine13.html",per13=per13,maxday13=maxday13,minday13=minday13)
+    return render_template("machine13week.html",per13=per13,maxday13=maxday13,minday13=minday13)
 
-@app.route('/machine13month')
+@app.route('/machine13month', methods=["POST", "GET"])
 def machine13month():
 
     startday13=request.form.get("startday13")
@@ -255,9 +269,9 @@ def machine13month():
     maxday13 = maxday13.first()[0]
 
     
-    return render_template("machine13.html",per13=per13,maxday13=maxday13,minday13=minday13)
+    return render_template("machine13month.html",per13=per13,maxday13=maxday13,minday13=minday13)
 
-@app.route('/machine46day')
+@app.route('/machine46day', methods=["POST", "GET"])
 def machine46day():
 
     startday46=request.form.get("startday46")
@@ -273,9 +287,9 @@ def machine46day():
     maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
     maxday = maxday.first()[0]
     
-    return render_template("machine46.html",per46=per46,maxday=maxday,minday=minday)
+    return render_template("machine46day.html",per46=per46,maxday=maxday,minday=minday)
 
-@app.route('/machine46week')
+@app.route('/machine46week', methods=["POST", "GET"])
 def machine46week():
 
     startday46=request.form.get("startday46")
@@ -291,9 +305,9 @@ def machine46week():
     maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
     maxday = maxday.first()[0]
     
-    return render_template("machine46.html",per46=per46,maxday=maxday,minday=minday)
+    return render_template("machine46week.html",per46=per46,maxday=maxday,minday=minday)
 
-@app.route('/machine46month')
+@app.route('/machine46month', methods=["POST", "GET"])
 def machine46month():
 
     startday46=request.form.get("startday46")
@@ -309,7 +323,7 @@ def machine46month():
     maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
     maxday = maxday.first()[0]
     
-    return render_template("machine46.html",per46=per46,maxday=maxday,minday=minday)
+    return render_template("machine46month.html",per46=per46,maxday=maxday,minday=minday)
 
 
 if __name__ == "__main__":
