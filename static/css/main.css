@@ -283,6 +283,7 @@ body{
     width: 50%;
     height: 185px; 
     /* background-color:#62ff5d; */
+    border-width: 1px;
     border-style: solid;
     align-items: center;
   }
@@ -292,6 +293,7 @@ body{
     width: 50%;
     height: 92.75px; 
     /* background-color:#c45dff; */
+    border-width: 1px;
     border-style: solid;
   }
 

@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import operation
-
+import psycopg2
 
 user = 'postgres'
 pwd = '12345'
@@ -11,6 +11,12 @@ port = '5432'
 dbname = 'test'
 engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}')
 db = scoped_session(sessionmaker(bind=engine))
+
+conn = psycopg2.connect(
+    host="localhost",
+    database="test",
+    user="postgres",
+    password="12345")
 
 app = Flask(__name__)
 
@@ -112,19 +118,19 @@ def testweek():
     atweek=request.form.get("atweek")
     percent=request.form.get("percent")
 
-    # atweek = ('SELECT EXTRACT('week' FROM "DateTime") as "Week", ROUND(AVG("Performance"),2) as "Performance" from showall WHERE EXTRACT('week' FROM "DateTime") = :atweek GROUP BY "Week" ',{"atweek": atweek})
-    
+    theweek = ('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = :atweek group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
+    # atweek = atweek.fetchone()
 
-    # per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startweek AND :endweek GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startweek": startweek, "endweek": endweek}) 
+    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startweek AND :endweek GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startweek": startweek, "endweek": endweek}) 
     # # per = per.first()[0]
 
-    # minweek = db.execute('SELECT DISTINCT DATE_PART('week', "DateTime") FROM showall GROUP BY DATE_PART('week', "DateTime") order by DATE_PART('week', "DateTime") ASC limit 1')
-    # minweek = minweek.first()[0]
-    # # print(minday)
+    minweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime" from showall group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) order by "DateTime" ASC limit 1')
+    minweek = minweek.first()[0]
+    # print(minweek)
 
-    # maxweek = db.execute('SELECT DISTINCT DATE_PART('week', "DateTime") FROM showall GROUP BY DATE_PART('week', "DateTime") order by DATE_PART('week', "DateTime") DESC limit 1 ')
-    # maxweek = maxweek.first()[0]
-    # print(maxday)
+    maxweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime" from showall group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) order by "DateTime" DESC limit 1 ')
+    maxweek = maxweek.first()[0]
+    # print(maxweek)
 
 
     
@@ -133,13 +139,13 @@ def testweek():
     # print(startday) 
     # print(endday)
     # print(per)
-    print(percent)
+    # print(percent)
     print(atweek)
     
    
 
     # return render_template("testweek.html",per=per,maxweek=maxweek,minweek=minweek,percent=per,atweek=atweek)
-    return render_template("testweek.html",atweek=atweek)
+    return render_template("testweek.html",atweek=atweek,minweek=minweek,maxweek=maxweek,per=per)
 
 @app.route('/testmonth', methods=["POST", "GET"])
 def testmonth():

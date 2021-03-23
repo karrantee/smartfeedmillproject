@@ -23,6 +23,7 @@
             <div class="test2">
             <form action="{{ url_for('testweek')}}" method="post">
                <label for="atweek">เลือกสัปดาห์ :</label>
+               <label for="atweek">{{atweek}}</label>
                
                <input type="week" id="atweek" name="atweek" value={{minweek}} min={{minweek}} max={{maxweek}}>
                
@@ -53,8 +54,15 @@
                       </div>
 
                       <div class="column c" >
-                        <!--  -->
-                        
+                        {%for i in per%}
+                        <p id="percent"> /19 ton/h</p>
+
+                        <script type="text/javascript">
+                          document.getElementById("percent").innerHTML = ({{i.Performance}}/19)*100;
+                          output.innerHTML = text;
+                        </script>
+                        {% endfor %}
+
                         <p>Status bar</br>>14Kwh/t </p>
                         <p>Status bar</br>Full load 420 Amp </p>
                         <p>Status bar</p>
