@@ -107,31 +107,39 @@ def testday():
 @app.route('/testweek', methods=["POST", "GET"])
 def testweek():
     
-    startday=request.form.get("startday")
-    endday=request.form.get("endday")
-    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
-    # per = per.first()[0]
+    startweek=request.form.get("startweek")
+    endweek=request.form.get("endweek")
+    atweek=request.form.get("atweek")
+    percent=request.form.get("percent")
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
-    minday = minday.first()[0]
-    # print(minday)
+    # atweek = ('SELECT EXTRACT('week' FROM "DateTime") as "Week", ROUND(AVG("Performance"),2) as "Performance" from showall WHERE EXTRACT('week' FROM "DateTime") = :atweek GROUP BY "Week" ',{"atweek": atweek})
+    
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
-    maxday = maxday.first()[0]
+    # per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startweek AND :endweek GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startweek": startweek, "endweek": endweek}) 
+    # # per = per.first()[0]
+
+    # minweek = db.execute('SELECT DISTINCT DATE_PART('week', "DateTime") FROM showall GROUP BY DATE_PART('week', "DateTime") order by DATE_PART('week', "DateTime") ASC limit 1')
+    # minweek = minweek.first()[0]
+    # # print(minday)
+
+    # maxweek = db.execute('SELECT DISTINCT DATE_PART('week', "DateTime") FROM showall GROUP BY DATE_PART('week', "DateTime") order by DATE_PART('week', "DateTime") DESC limit 1 ')
+    # maxweek = maxweek.first()[0]
     # print(maxday)
 
-    percent=request.form.get("percent")
+
+    
 
     db.commit()
     # print(startday) 
     # print(endday)
     # print(per)
     print(percent)
-
+    print(atweek)
     
    
 
-    return render_template("testweek.html",per=per,maxday=maxday,minday=minday,percent=percent)
+    # return render_template("testweek.html",per=per,maxweek=maxweek,minweek=minweek,percent=per,atweek=atweek)
+    return render_template("testweek.html",atweek=atweek)
 
 @app.route('/testmonth', methods=["POST", "GET"])
 def testmonth():
@@ -210,6 +218,7 @@ def machine13day():
 
     startday=request.form.get("startday")
     endday=request.form.get("endday")
+    
     per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
     # per = per.first()[0]
 
