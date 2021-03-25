@@ -15,23 +15,55 @@
                 
                     <div class="column" style="width: 30%;" >
        
-                            <form style="padding-left:10px; padding-top:10px; width=200px;"> 
+                            <form style="padding-left:10px; padding-top:10px;"> 
                                 
-                                <label for="formula" style="font-size: 20px;">สูตร : <output name="formula"></output></label>
+                                <label for="formula" style="font-size: 20px;">สูตร : <output name="formula"></output>{{date}}</label>
                             </br>
-                                <label for="ะรทำ" style="font-size: 20px;">เวลา : <output name="formula"></output></label>
+                                <label for="ะรทำ" style="font-size: 20px;">เวลา : <output name="formula">{{time}}</output></label>
                             </br>
-                                <label for="perofrmance" style="font-size: 20px;">ประสิทธิภาพ : <output name="formula"></output></label>
+
+                                <label for="perofrmance" style="font-size: 20px;">ประสิทธิภาพ : <output name="formula">{{id}}</output></label>
+
+                            
+
                             </br>
-                                <label for="electcon" style="font-size: 20px;">ไฟฟ้า : <output name="formula"></output></label>
+                                <label for="electcon" style="font-size: 20px;">ไฟฟ้า : {{cu}}<output name="formula"></output></label>
+
                             </br>
-                                <label for="motor" style="font-size: 20px;">Motor : <output name="formula"></output></label>
+                            
+                                <label for="motor" style="font-size: 20px;">Motor :<output name="formula"></output></label>
+                            
                             </br>
                             </form>
                     
                         <div class="column" style="height: 100px; padding-left:10px">
                             <h5>Machine : PL1</h5>
-                            <img src="/static/image/long.jpg"  alt="long" style="width:120px; height:360px; margin:50px 50px;">
+
+                            <div class="grid-container">
+
+                                <div>
+                                <img src="/static/image/mixer1nobg.png"  alt="long" style="width:150px; height:150px; margin:10px 10px;">
+                                </div>
+
+                                <div>
+                                <p> สำหรับ :</p>
+                                <img src="/static/image/pigbigb.png"  alt="long" style="width:150px; height:150px;">
+                                </div>
+
+                                <div>
+                                <img src="/static/image/mixer1nobg.png"  alt="long" style="width:150px; height:150px; margin:10px 10px;">
+                                </div>
+
+                                <div>
+                                <img src="/static/image/mixer1nobg.png"  alt="long" style="width:150px; height:150px; margin:10px 10px;">
+                                </div>
+
+                                <div>
+                                <img src="/static/image/mixer1nobg.png"  alt="long" style="width:150px; height:150px; margin:10px 10px;">
+                                </div>
+
+                            </div>
+                            
                         </div>
                     </div>  
 
@@ -99,7 +131,7 @@
                             <h4>Performance</h4>
                             
         
-                            <div class="column c" style="width: 150%;">
+                            <div class="column c" style="width: 150%; margin-bottom: 25px">
                                 <p>Performance Cap.</br>19 ton/h </p>
                                 <p>Electrical cons TG.</br>>14Kwh/t </p>
                                 <p>Motor current.</br>Full load 420 Amp </p>
