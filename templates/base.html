@@ -53,10 +53,21 @@
           <img src="/static/image/cpf.png" width="60" height="60" alt="cpf">
       </a>
       <h5>SMART FEEDMILL</h5>
-      <a class="nav-link" style="margin-top: 50px; margin-bottom:10px; font-size:22px;" href="/"><i class="far fa-clock"></i>  Real Time</a>
-      <!-- <a class="nav-link" style="margin-top: 50px; font-size:22px;" href="{{url_for('machine13')}}"><i class="fas fa-cogs"></i>  เครื่อง 1-3</a>
-      <a class="nav-link" style="margin-top: 50px; font-size:22px;" href="{{url_for('machine46')}}"><i class="fas fa-cogs"></i>  เครื่อง 4-6</a> -->
-      <!-- <a class="nav-link" style="margin-top: 20px; font-size:22px;" href="{{url_for('test')}}"><i class="fas fa-cogs"></i>  Test</a> -->
+      <!-- <a class="nav-link" style="margin-top: 50px; margin-bottom:10px; font-size:22px;" href="/"><i class="far fa-clock"></i>  Real Time</a> -->
+
+      <li class="nav-item dropdown" style="margin-top: 50px;">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          <i class="far fa-clock"></i> Realtime
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/"> <i class="fas fa-cogs"></i> เครื่อง 1</a>
+          <a class="dropdown-item" href="{{url_for('realtime2')}}"> <i class="fas fa-cogs"></i> เครื่อง 2</a>
+          <a class="dropdown-item" href="{{url_for('realtime3')}}"> <i class="fas fa-cogs"></i> เครื่อง 3</a>
+          <a class="dropdown-item" href="{{url_for('realtime4')}}"> <i class="fas fa-cogs"></i> เครื่อง 4</a>
+          <a class="dropdown-item" href="{{url_for('realtime5')}}"> <i class="fas fa-cogs"></i> เครื่อง 5</a>
+          <a class="dropdown-item" href="{{url_for('realtime6')}}"> <i class="fas fa-cogs"></i> เครื่อง 6</a>
+        </div>
+      </li>
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

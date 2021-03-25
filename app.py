@@ -32,6 +32,41 @@ def home():
 
     return render_template("home.html")
 
+@app.route('/realtime2')
+def realtime2():
+    
+
+
+    return render_template("realtime2.html")
+
+@app.route('/realtime3')
+def realtime3():
+    
+
+
+    return render_template("realtime3.html")
+
+@app.route('/realtime4')
+def realtime4():
+    
+
+
+    return render_template("realtime4.html")
+
+@app.route('/realtime5')
+def realtime5():
+    
+
+
+    return render_template("realtime5.html")
+
+@app.route('/realtime6')
+def realtime6():
+    
+
+
+    return render_template("realtime6.html")
+
 
 
 @app.route('/test', methods=["POST", "GET"])
