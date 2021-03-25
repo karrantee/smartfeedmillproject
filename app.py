@@ -18,6 +18,8 @@ conn = psycopg2.connect(
     user="postgres",
     password="12345")
 
+cur = conn.cursor()
+
 app = Flask(__name__)
 
 app.config["SESSION_PERMANENT"] = False
@@ -116,13 +118,21 @@ def testweek():
     startweek=request.form.get("startweek")
     endweek=request.form.get("endweek")
     atweek=request.form.get("atweek")
-    percent=request.form.get("percent")
 
-    theweek = ('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = :atweek group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
-    # atweek = atweek.fetchone()
+    connection = engine.raw_connection()
+    cur = connection.cursor()
 
-    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startweek AND :endweek GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startweek": startweek, "endweek": endweek}) 
-    # # per = per.first()[0]
+    # theweek = cur.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = $$:atweek$$ group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$)',{"atweek": atweek})
+
+    # theweek = cur.fetchone()
+
+    # print(theweek)
+
+    theweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = TO_CHAR("DateTime" :: DATE, :atweek) group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
+    # theweek = theweek.first()[0]
+
+    # cur.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = $$atweek$$ group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
+    # theweek = cur.fetchall()
 
     minweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime" from showall group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) order by "DateTime" ASC limit 1')
     minweek = minweek.first()[0]
@@ -138,14 +148,13 @@ def testweek():
     db.commit()
     # print(startday) 
     # print(endday)
-    # print(per)
-    # print(percent)
+    print(theweek)
     print(atweek)
     
    
 
     # return render_template("testweek.html",per=per,maxweek=maxweek,minweek=minweek,percent=per,atweek=atweek)
-    return render_template("testweek.html",atweek=atweek,minweek=minweek,maxweek=maxweek,per=per)
+    return render_template("testweek.html",atweek=atweek,minweek=minweek,maxweek=maxweek,theweek=theweek)
 
 @app.route('/testmonth', methods=["POST", "GET"])
 def testmonth():
@@ -291,6 +300,10 @@ def machine46day():
 
     startday46=request.form.get("startday46")
     endday46=request.form.get("endday46")
+    atday46=request.form.get("atday46")
+
+    atday46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"atday46":atday46})
+
     per46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday46 AND :endday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
     
     # per = per.first()[0]
@@ -302,7 +315,7 @@ def machine46day():
     maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
     maxday = maxday.first()[0]
     
-    return render_template("machine46day.html",per46=per46,maxday=maxday,minday=minday)
+    return render_template("machine46day.html",per46=per46,maxday=maxday,minday=minday,atday46=atday46)
 
 @app.route('/machine46week', methods=["POST", "GET"])
 def machine46week():

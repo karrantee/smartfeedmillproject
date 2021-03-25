@@ -22,12 +22,10 @@
           <div class="box">
             <div class="test2">
             <form action="{{ url_for('machine46day')}}" method="post">
-               <label for="startday">เลือกช่วงเวลา เริ่ม:</label>
-               <input type="date" id="startday46" name="startday46" value={{minday}} min={{minday}} max={{maxday}}>
                
-               <label for="startday">ถึง: </label>
+               <label for="startday">เลือกวันที่ : </label>
                
-               <input type="date" id="endday46" name="endday46" value={{maxday}} min={{minday}} max={{maxday}}>
+               <input type="date" id="atday46" name="atday46" value={{maxday}} min={{minday}} max={{maxday}}>
                <input type="submit">
             </form>
             </div>
@@ -57,7 +55,7 @@
                       </div>
 
                       <div class="column c" >
-                        {% for i in per46%}
+                        {% for i in atday46%}
                         <p>{{i.Performance}}</br> 19 ton/h </p>
                         {% endfor %}
                         <p>Status bar</br>>14Kwh/t </p>

@@ -40,6 +40,10 @@
                   <div class="column a">
                     <h3>Machine : 1</h3>
                     <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
+                    {%for a in theweek%}
+                    <p>{{a.Performance}}</p>
+                    {% endfor %}
+                    
                   </div>
 
                   <!-- Performance -->
@@ -54,35 +58,13 @@
                       </div>
 
                       <div class="column c" >
-                        {%for i in per%}
-                        <p id="percent"> /19 ton/h</p>
+                        <p> /19 ton/h</p>
 
-                        <script type="text/javascript">
-                          document.getElementById("percent").innerHTML = ({{i.Performance}}/19)*100;
-                          output.innerHTML = text;
-                        </script>
-                        {% endfor %}
-
-                        <p>Status bar</br>>14Kwh/t </p>
+                        <p>{{theweek}}</br>>14Kwh/t </p>
                         <p>Status bar</br>Full load 420 Amp </p>
                         <p>Status bar</p>
 
-                        <script>
-                          $('.skill-per').each(function(){
-                            var $this = $(this);
-                            var per = $this.attr('per');
-                            $this.css("width",per+'%');
-                            $({animatedValue: 0}).animate({animatedValue: per},{
-                              duration: 1000,
-                              step: function(){
-                                $this.attr('per', Math.floor(this.animatedValue) + '%');
-                              },
-                              complete: function(){
-                                $this.attr('per', Math.floor(this.animatedValue) + '%');
-                              }
-                            });
-                          });
-                        </script>
+                        
                       </div>
 
                   <!-- Steam -->
