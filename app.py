@@ -9,7 +9,8 @@ pwd = '12345'
 host = '127.0.0.1'
 port = '5432'
 dbname = 'test'
-engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}',pool_size=100, max_overflow=0)
+# engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}',pool_size=100, max_overflow=0)
+engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}')
 db = scoped_session(sessionmaker(bind=engine))
 
 conn = psycopg2.connect(
@@ -63,38 +64,165 @@ def home():
 
 @app.route('/realtime2')
 def realtime2():
+
+    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = date.first()[0]
+    print(date)
+
+    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = time.first()[0]
+    print(time)
+
+    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+
+    for row in performance:
+        id = row['Performance']
+        print(id)
+
+
+
+    # print(performance.fetchall())
+
+    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    
+    for row in current:
+        cu = row['current']
+        print(cu)
+
+    print(current)
     
 
 
-    return render_template("realtime2.html")
+    return render_template("realtime2.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
 
 @app.route('/realtime3')
 def realtime3():
+
+    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = date.first()[0]
+    print(date)
+
+    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = time.first()[0]
+    print(time)
+
+    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+
+    for row in performance:
+        id = row['Performance']
+        print(id)
+
+
+
+    # print(performance.fetchall())
+
+    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    
+    for row in current:
+        cu = row['current']
+        print(cu)
+
+    print(current)
     
 
 
-    return render_template("realtime3.html")
+    return render_template("realtime3.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
 
 @app.route('/realtime4')
 def realtime4():
     
+    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = date.first()[0]
+    print(date)
+
+    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = time.first()[0]
+    print(time)
+
+    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+
+    for row in performance:
+        id = row['Performance']
+        print(id)
 
 
-    return render_template("realtime4.html")
+
+    # print(performance.fetchall())
+
+    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    
+    for row in current:
+        cu = row['current']
+        print(cu)
+
+    print(current)
+
+
+    return render_template("realtime4.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
 
 @app.route('/realtime5')
 def realtime5():
     
+    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = date.first()[0]
+    print(date)
+
+    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = time.first()[0]
+    print(time)
+
+    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+
+    for row in performance:
+        id = row['Performance']
+        print(id)
 
 
-    return render_template("realtime5.html")
+
+    # print(performance.fetchall())
+
+    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    
+    for row in current:
+        cu = row['current']
+        print(cu)
+
+    print(current)
+
+
+    return render_template("realtime5.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
 
 @app.route('/realtime6')
 def realtime6():
     
+    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = date.first()[0]
+    print(date)
+
+    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = time.first()[0]
+    print(time)
+
+    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+
+    for row in performance:
+        id = row['Performance']
+        print(id)
 
 
-    return render_template("realtime6.html")
+
+    # print(performance.fetchall())
+
+    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    
+    for row in current:
+        cu = row['current']
+        print(cu)
+
+    print(current)
+
+
+    return render_template("realtime6.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
 
 
 
