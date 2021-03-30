@@ -267,24 +267,32 @@ def testday():
     startday=request.form.get("startday")
     endday=request.form.get("endday")
     atday=request.form.get("atday")
-    formula13day=request.form.get("formula13day")
+    formula13day=request.form.get("formula")
+    shift=request.form.get("shift")
 
-    formula = db.execute('SELECT "Formula" from showall group by "Formula"')
+    formula = db.execute('SELECT DISTINCT "FORMULA" from "PL6_Daily"')
     formula = formula.fetchall()
+    # for row in formula:
+    #     form = row['FORMULA']
+    # print(form)
 
-    atday = db.execute('SELECT DISTINCT "Formula" as "Formula", ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday AND "Formula" = :formula13day GROUP BY "Formula", date("DateTime") ORDER BY date("DateTime")',{"atday":atday, "formula13day":formula13day})
+    atday = db.execute('SELECT DISTINCT "FORMULA","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$567SF-SWD$$ AND "SHIFT" = $$S3$$ GROUP BY "FORMULA", date("DATETIME"),"SHIFT","PERFORMANCE" ORDER BY date("DATETIME")',{"atday":atday,"shift":shift, "formula":formula13day})
     # atday = atday.first()[0]
 
     per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     # print(maxday)
+
+    shift = db.execute('SELECT DISTINCT "SHIFT" from "PL6_Daily" ')
+    shift = shift.fetchall()
+    
 
     percent=request.form.get("percent")
 
@@ -302,7 +310,7 @@ def testday():
     
    
 
-    return render_template("testday.html",per=per,maxday=maxday,minday=minday,percent=percent,atday=atday,formula13day=formula13day,formula=formula)
+    return render_template("testday.html",per=per,maxday=maxday,minday=minday,percent=percent,atday=atday,formula13day=formula13day,formula=formula,form=formula,shift=shift)
 
 @app.route('/testweek', methods=["POST", "GET"])
 def testweek():

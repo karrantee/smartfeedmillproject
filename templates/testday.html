@@ -21,24 +21,56 @@
          <!-- <h1>เลือกช่วงเวลา</h1> -->
           <div class="box">
             <div class="test2">
-            <form action="{{ url_for('testday')}}" method="post">
+              <form action="{{ url_for('testday')}}" method="post">
 
-                <label for="formula13day">เลือกสูตร :</label>
-                <input list="formula" name="formula13day">
+                  <label for="formula13day">เลือกสูตร :</label>
 
-                {%for i in formula%}
-                <select id="formula">
-                  <option value="formula">{{i.formula}}</option>
+                  <select id="formula" onchange="ddselect();">
+                    {%for i in form%}
+                    
+                    <option value="{{i.FORMULA|e}}">{{i.FORMULA|e}}</option>
+                    <!-- <option value="two">2.</option>
+                    <option value="three">3.</option>
+                    <option value="four">4.</option> -->
+                    {% endfor %}
+                   </select>
+                   
+                  <input type="text" id="txtvalue"/>
 
-                </select>
-                {%endfor%}
+                  <script>
+                    function ddselect()
+                    {
+                      var d = document.getElementById("formula");
+                      var display = d.options[d.selectedIndex].text;
+                      document.getElementById("txtvalue").value = display;
+                    }
+                  </script>
 
-              <label for="atdat">เลือกวันที่ :</label>
-               
-              <input type="date" id="atday" name="atday" value={{minday}} min={{minday}} max={{maxday}}>
-             
-              <input type="submit">
-            </form>
+                <label for="atdat">เลือกช่วงเวลา :</label>
+              
+                <select id="shift" onchange="svselect();">
+                  {% for s in shift %}
+                  <option value="{{s.SHIFT|e}}">{{s.SHIFT|e}}</option>
+                  {% endfor %}
+                </select> 
+
+                <input type="text" id="shiftvalue"/>
+
+                <script>
+                  function svselect()
+                  {
+                    var d = document.getElementById("shift");
+                    var display = d.options[d.selectedIndex].text;
+                    document.getElementById("shiftvalue").value = display;
+                  }
+                </script>
+
+                <label for="atdat">เลือกวันที่ :</label>
+                
+                <input type="date" id="atday" name="atday" value={{minday}} min={{minday}} max={{maxday}}>
+              
+                <input type="submit">
+              </form>
             </div>
 
             <div class="row">
@@ -54,62 +86,7 @@
                   </div>
 
                   <!-- Performance -->
-                  <div class="column b" >
-                    <h4>Performance</h4>
-
-                      <div class="column c" >
-                        <p>Performance Cap.</br>19 ton/h </p>
-                        <p>Electrical cons TG.</br>>14Kwh/t </p>
-                        <p>Motor current.</br>Full load 420 Amp </p>
-                        <p>% Load </p>
-                      </div>
-
-                      <div class="column c" >
-                        <!-- {{per.Performance}} -->
-                        {% for i in atday%}
-                        <p id="percent"> /19 ton/h </p>
-                        <p>{{i.Performance}}</p>
-                        <!-- <div class="progress">
-                          <div class="progress-bar" role="progressbar" style="width: {{i.Performance}};" aria-valuenow="{{i.Performance}}" aria-valuemin="0" aria-valuemax="19">{{i.Performance}}</div>
-                        </div>
-
-                        <div class="skill-bar">
-                          <div class="skill-per" per={{i.Performance}}></div>
-                        </div> -->
-                        
-                        <progress id="myProgress" value={{i.Performance}} max="19">
-                        </progress>
-
-                        <script type="text/javascript">
-                          document.getElementById("percent").innerHTML = ({{i.Performance}}/19)*100;
-                          output.innerHTML = text;
-                        </script>
-                        {% endfor %}
-                        
-                        <p>Status bar</br>>14Kwh/t </p>
-                        <p>Status bar</br>Full load 420 Amp </p>
-                        <p>Status bar</p>
-
-                        <script>
-                          $('.skill-per').each(function(){
-                            var $this = $(this);
-                            var per = $this.attr('per');
-                            $this.css("width",per+'%');
-                            $({animatedValue: 0}).animate({animatedValue: per},{
-                              duration: 1000,
-                              step: function(){
-                                $this.attr('per', Math.floor(this.animatedValue) + '%');
-                              },
-                              complete: function(){
-                                $this.attr('per', Math.floor(this.animatedValue) + '%');
-                              }
-                            });
-                          });
-                        </script>
-                      </div>
-
-                  <!-- Steam -->
-                  </div>
+                  
 
                   <div class="column b" >
                     <h4>Steam</h4>
