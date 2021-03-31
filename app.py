@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import operation
-import psycopg2
+# import psycopg2
 
 user = 'postgres'
 pwd = '12345'
@@ -13,13 +13,13 @@ dbname = 'test'
 engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}')
 db = scoped_session(sessionmaker(bind=engine))
 
-conn = psycopg2.connect(
-    host="localhost",
-    database="test",
-    user="postgres",
-    password="12345")
+# conn = psycopg2.connect(
+#     host="localhost",
+#     database="test",
+#     user="postgres",
+#     password="12345")
 
-cur = conn.cursor()
+# cur = conn.cursor()
 
 app = Flask(__name__)
 
@@ -264,23 +264,9 @@ def test():
 @app.route('/testday', methods=["POST", "GET"])
 def testday():
 
-    startday=request.form.get("startday")
-    endday=request.form.get("endday")
-    atday=request.form.get("atday")
-    formula13day=request.form.get("formula")
-    shift=request.form.get("shift")
-
-    formula = db.execute('SELECT DISTINCT "FORMULA" from "PL6_Daily"')
-    formula = formula.fetchall()
-    # for row in formula:
-    #     form = row['FORMULA']
-    # print(form)
-
-    atday = db.execute('SELECT DISTINCT "FORMULA","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$567SF-SWD$$ AND "SHIFT" = $$S3$$ GROUP BY "FORMULA", date("DATETIME"),"SHIFT","PERFORMANCE" ORDER BY date("DATETIME")',{"atday":atday,"shift":shift, "formula":formula13day})
-    # atday = atday.first()[0]
-
-    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
-    # per = per.first()[0]
+    # Max and min day limit in calendar
+    startday =      request.form.get("startday")
+    endday =        request.form.get("endday")
 
     minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
@@ -290,27 +276,43 @@ def testday():
     maxday = maxday.first()[0]
     # print(maxday)
 
-    shift = db.execute('SELECT DISTINCT "SHIFT" from "PL6_Daily" ')
-    shift = shift.fetchall()
+    # List formula in drop down list
+    formula = db.execute('SELECT DISTINCT "FORMULA" FROM "PL6_Daily"').fetchall()
+
+    # List shift in drop down list
+    shift = db.execute('SELECT DISTINCT "SHIFT" FROM "PL6_Daily"').fetchall()
     
-
-    percent=request.form.get("percent")
-
-
-    db.commit()
-    # db.close()
-    # print(startday) 
-    # print(endday)
-    # print(per)
-    print(atday)
-    # print(formula)
-
-    # print(percent)
-
+    # Show performance after query
     
+    selectday =     request.form.get("atday")
+    selectformula = request.form.get("formulavalue")
+    selectshift =   request.form.get("shiftvalue")
+
+    print("formula : "+selectformula)
+    print("shift : "+selectshift)
+    print("day : "+selectday)
+
+    performance = db.execute('SELECT DISTINCT "FORMULA" ,"SHIFT", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ' ).fetchall()
+    for d in performance:
+        performance = d['PERFORMANCE']
+
+    print(performance)
+
+
+    test = db.execute('SELECT DISTINCT "FORMULA",("DATETIME"::timestamp::date) as "DATETIME","SHIFT","PERFORMANCE" FROM "PL6_Daily" WHERE "FORMULA" = :formula AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift} ).fetchall()
+    print(test)
+    # perform = db.execute('SELECT DISTINCT "FORMULA", "DATETIME","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectday AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ',{"selectday": selectday, "selectshift": selectshift, "selectformula": selectformula} )
+    # print(perform)
+    # for p in perform:
+    #     performa = p['PERFORMANCE']
+
+    # print(performa)
    
+    db.commit()
+    db.close()
 
-    return render_template("testday.html",per=per,maxday=maxday,minday=minday,percent=percent,atday=atday,formula13day=formula13day,formula=formula,form=formula,shift=shift)
+    return render_template("testday.html",maxday=maxday,minday=minday,formula=formula,shift=shift,performance=performance)
+    return request.form['formulavalue','shiftvalue']
 
 @app.route('/testweek', methods=["POST", "GET"])
 def testweek():
@@ -429,7 +431,9 @@ def machine13day():
 
     atday=request.form.get("atday")
     atday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"atday":atday})
-   
+    # atdayy = atday
+    # for d in atdayy:
+    #     atdayy = d['Performance']
 
     startday=request.form.get("startday")
     endday=request.form.get("endday")
