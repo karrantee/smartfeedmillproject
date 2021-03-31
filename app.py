@@ -299,7 +299,7 @@ def testday():
     print(performance)
 
 
-    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE" FROM "PL6_Daily" WHERE "FORMULA" = :formula AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift} ).fetchall()
+    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE" FROM "PL6_Daily" WHERE "FORMULA" = :formula  AND TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :ezday  AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift,"ezday":selectday} ).fetchall()
     print(test)
     # perform = db.execute('SELECT DISTINCT "FORMULA", "DATETIME","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectday AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ',{"selectday": selectday, "selectshift": selectshift, "selectformula": selectformula} )
     # print(perform)
