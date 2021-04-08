@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 
- <head>
-    {% block title %}<title></title>{% endblock title %}
+<head>
+  {% block title %}<title></title>{% endblock title %}
 
-    <link rel="icon" href="/static/image/cpf_icon.ico" type="image/gif" sizes="16x16">
+  <link rel="icon" href="/static/image/cpf_icon.ico" type="image/gif" sizes="16x16">
 
-    <!--link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" old style-->
+  <!--link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" old style-->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--New Style-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-    <!--JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+ 
 
-    <!-- Chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-    
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
-    <link rel="stylesheet" href="../static/css/main.css">
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}"> -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="../static/js/index.js"></script>
 
-    <!-- jquery -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
-    <!-- <style type ="text/css">
+
+  <!-- Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  <!--New Style-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <!--JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+  <link rel="stylesheet" href="../static/css/main.css">
+  <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}"> -->
+
+  <!-- jquery -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
+
+  <!-- <style type ="text/css">
       body {
         background-image: url(./static/image/cpfbg.jpg);
         background-size: cover;
@@ -43,85 +64,83 @@
     </style> -->
 
 
-    <!-- Refresh Rate -->
-    <!-- <meta http-equiv="refresh" content="10"> -->
+  <!-- Refresh Rate -->
+  <!-- <meta http-equiv="refresh" content="10"> -->
 
- </head>
+</head>
 
-   
- <body>
 
-  
-    <div class="sidebar">
-      <a href="/">
-          <img src="/static/image/cpf.png" width="60" height="60" alt="cpf">
+<body>
+
+
+  <div class="sidebar">
+    <a href="/">
+      <img src="/static/image/cpf.png" width="60" height="60" alt="cpf">
+    </a>
+    <h5>SMART FEEDMILL</h5>
+    <!-- <a class="nav-link" style="margin-top: 50px; margin-bottom:10px; font-size:22px;" href="/"><i class="far fa-clock"></i>  Real Time</a> -->
+
+    <li class="nav-item dropdown" style="margin-top: 50px;">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <i class="far fa-clock"></i> Realtime
       </a>
-      <h5>SMART FEEDMILL</h5>
-      <!-- <a class="nav-link" style="margin-top: 50px; margin-bottom:10px; font-size:22px;" href="/"><i class="far fa-clock"></i>  Real Time</a> -->
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="/"> <i class="fas fa-cogs"></i> เครื่อง 1</a>
+        <a class="dropdown-item" href="{{url_for('realtime2')}}"> <i class="fas fa-cogs"></i> เครื่อง 2</a>
+        <a class="dropdown-item" href="{{url_for('realtime3')}}"> <i class="fas fa-cogs"></i> เครื่อง 3</a>
+        <a class="dropdown-item" href="{{url_for('realtime4')}}"> <i class="fas fa-cogs"></i> เครื่อง 4</a>
+        <a class="dropdown-item" href="{{url_for('realtime5')}}"> <i class="fas fa-cogs"></i> เครื่อง 5</a>
+        <a class="dropdown-item" href="{{url_for('realtime6')}}"> <i class="fas fa-cogs"></i> เครื่อง 6</a>
+      </div>
+    </li>
 
-      <li class="nav-item dropdown" style="margin-top: 50px;">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          <i class="far fa-clock"></i> Realtime
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/"> <i class="fas fa-cogs"></i> เครื่อง 1</a>
-          <a class="dropdown-item" href="{{url_for('realtime2')}}"> <i class="fas fa-cogs"></i> เครื่อง 2</a>
-          <a class="dropdown-item" href="{{url_for('realtime3')}}"> <i class="fas fa-cogs"></i> เครื่อง 3</a>
-          <a class="dropdown-item" href="{{url_for('realtime4')}}"> <i class="fas fa-cogs"></i> เครื่อง 4</a>
-          <a class="dropdown-item" href="{{url_for('realtime5')}}"> <i class="fas fa-cogs"></i> เครื่อง 5</a>
-          <a class="dropdown-item" href="{{url_for('realtime6')}}"> <i class="fas fa-cogs"></i> เครื่อง 6</a>
-        </div>
-      </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <i class="far fa-calendar-alt"></i> รายวัน
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('machine13day')}}"> <i class="fas fa-cogs"></i> เครื่อง 1-3</a>
+        <a class="dropdown-item" href="{{url_for('machine46day')}}"><i class="fas fa-cogs"></i> เครื่อง 4-6</a>
+        <a class="dropdown-item" href="{{url_for('testday')}}"><i class="fas fa-cogs"></i> Test</a>
+      </div>
+    </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          <i class="far fa-calendar-alt"></i> รายวัน
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="{{url_for('machine13day')}}"> <i class="fas fa-cogs"></i> เครื่อง 1-3</a>
-          <a class="dropdown-item" href="{{url_for('machine46day')}}"><i class="fas fa-cogs"></i> เครื่อง 4-6</a>
-          <a class="dropdown-item" href="{{url_for('testday')}}"><i class="fas fa-cogs"></i> Test</a>
-        </div>
-      </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <i class="fas fa-calendar-alt"></i> รายสัปดาห์
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('machine13week')}}"><i class="fas fa-cogs"></i> เครื่อง 1-3 </a>
+        <a class="dropdown-item" href="{{url_for('machine46week')}}"><i class="fas fa-cogs"></i> เครื่อง 4-6 </a>
+        <a class="dropdown-item" href="{{url_for('testweek')}}"><i class="fas fa-cogs"></i> Test</a>
+      </div>
+    </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          <i class="fas fa-calendar-alt"></i> รายสัปดาห์
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="{{url_for('machine13week')}}"><i class="fas fa-cogs"></i> เครื่อง 1-3 </a>
-          <a class="dropdown-item" href="{{url_for('machine46week')}}"><i class="fas fa-cogs"></i> เครื่อง 4-6 </a>
-          <a class="dropdown-item" href="{{url_for('testweek')}}"><i class="fas fa-cogs"></i> Test</a>
-        </div>
-      </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <i class="far fa-calendar"></i> รายเดือน
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('machine13month')}}"><i class="fas fa-cogs"></i> เครื่อง 1-3 </a>
+        <a class="dropdown-item" href="{{url_for('machine46month')}}"><i class="fas fa-cogs"></i> เครื่อง 4-6 </a>
+        <a class="dropdown-item" href="{{url_for('testmonth')}}"><i class="fas fa-cogs"></i> Test</a>
+      </div>
+    </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          <i class="far fa-calendar"></i> รายเดือน
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="{{url_for('machine13month')}}"><i class="fas fa-cogs"></i> เครื่อง 1-3 </a>
-          <a class="dropdown-item" href="{{url_for('machine46month')}}"><i class="fas fa-cogs"></i> เครื่อง 4-6 </a>
-          <a class="dropdown-item" href="{{url_for('testmonth')}}"><i class="fas fa-cogs"></i> Test</a>
-        </div>
-      </li>
-      
-      <a class="nav-link" style="margin-top: 20px; font-size:22px;" href="{{url_for('test')}}"><i class="fas fa-cogs"></i>  Test</a>
-    </div>
-    
-    <div class="imagebg"></div>
+    <a class="nav-link" style="margin-top: 20px; font-size:22px;" href="{{url_for('test')}}"><i class="fas fa-cogs"></i>
+      Test</a>
+  </div>
+
+  <div class="imagebg"></div>
 
   <br>
-    {% block content %}
+  {% block content %}
 
-    {% endblock content %}
+  {% endblock content %}
   <br>
- 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-    
- </body>
+
+</body>
+
 </html>

@@ -25,7 +25,7 @@
                <label for="atweek">เลือกสัปดาห์ :</label>
                <label for="atweek">{{atweek}}</label>
                
-               <input type="week" id="atweek" name="atweek" value={{minweek}} min={{minweek}} max={{maxweek}}>
+               <input type="week" id="atweek" name="atweek" value={{atweek}} min={{minweek}} max={{maxweek}}>
                
                <input type="submit">
             </form>
@@ -40,8 +40,8 @@
                   <div class="column a">
                     <h3>Machine : 1</h3>
                     <img class="column img" src="/static/image/doggo.jpg"  alt="doggo">
-                    {%for a in theweek%}
-                    <p>{{a.Performance}}</p>
+                    {%for a in daweek%}
+                    <p>{{a.PERFORMANCE}}</p>
                     {% endfor %}
                     
                   </div>

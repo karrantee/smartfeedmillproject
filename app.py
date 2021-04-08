@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import operation
@@ -29,200 +29,237 @@ app.config["SESSION_TYPE"] = "filesystem"
 @app.route('/')
 def home():
 
-    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = db.execute('SELECT "FORMULA","DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     date = date.first()[0]
     print(date)
 
-    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = db.execute('SELECT "DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     time = time.first()[0]
     print(time)
 
-    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+    performance = db.execute('SELECT "PERFORMANCE" from "PL6_Daily" order by "DATETIME" DESC limit 1')
 
     for row in performance:
-        id = row['Performance']
+        id = row['PERFORMANCE']
         print(id)
 
 
 
     # print(performance.fetchall())
 
-    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    current = db.execute('SELECT "MOTOR CURRENT" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     
     for row in current:
-        cu = row['current']
+        cu = row['MOTOR CURRENT']
         print(cu)
 
-    print(current)
 
+    econ = db.execute('SELECT TO_CHAR("ELECTRIC CONS", $$9999D99$$) AS "ELECTRIC CONS" from "PL6_Daily" order by "DATETIME" DESC limit 1')
+        
+    for row in econ:
+        ec = row['ELECTRIC CONS']
+        print(ec)
 
+    print(ec)
     
-    
 
 
-    return render_template("home.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
+    return render_template("home.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
 @app.route('/realtime2')
 def realtime2():
 
-    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = db.execute('SELECT "FORMULA","DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     date = date.first()[0]
     print(date)
 
-    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = db.execute('SELECT "DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     time = time.first()[0]
     print(time)
 
-    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+    performance = db.execute('SELECT "PERFORMANCE" from "PL6_Daily" order by "DATETIME" DESC limit 1')
 
     for row in performance:
-        id = row['Performance']
+        id = row['PERFORMANCE']
         print(id)
 
 
 
     # print(performance.fetchall())
 
-    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    current = db.execute('SELECT "MOTOR CURRENT" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     
     for row in current:
-        cu = row['current']
+        cu = row['MOTOR CURRENT']
         print(cu)
 
-    print(current)
+    # print(current)
     
+    econ = db.execute('SELECT TO_CHAR("ELECTRIC CONS", $$9999D99$$) AS "ELECTRIC CONS" from "PL6_Daily" order by "DATETIME" DESC limit 1')
+        
+    for row in econ:
+        ec = row['ELECTRIC CONS']
+        print(ec)
 
+    print(ec)
 
-    return render_template("realtime2.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
+    return render_template("realtime2.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
 @app.route('/realtime3')
 def realtime3():
 
-    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = db.execute('SELECT "FORMULA","DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     date = date.first()[0]
     print(date)
 
-    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = db.execute('SELECT "DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     time = time.first()[0]
     print(time)
 
-    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+    performance = db.execute('SELECT "PERFORMANCE" from "PL6_Daily" order by "DATETIME" DESC limit 1')
 
     for row in performance:
-        id = row['Performance']
+        id = row['PERFORMANCE']
         print(id)
 
-
+    
 
     # print(performance.fetchall())
 
-    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    current = db.execute('SELECT "MOTOR CURRENT" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     
     for row in current:
-        cu = row['current']
+        cu = row['MOTOR CURRENT']
         print(cu)
 
-    print(current)
+    # print(current)
     
+    econ = db.execute('SELECT TO_CHAR("ELECTRIC CONS", $$9999D99$$) AS "ELECTRIC CONS" from "PL6_Daily" order by "DATETIME" DESC limit 1')
+        
+    for row in econ:
+        ec = row['ELECTRIC CONS']
+        print(ec)
 
+    print(ec)
 
-    return render_template("realtime3.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
+    return render_template("realtime3.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
 @app.route('/realtime4')
 def realtime4():
     
-    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = db.execute('SELECT "FORMULA","DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     date = date.first()[0]
     print(date)
 
-    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = db.execute('SELECT "DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     time = time.first()[0]
     print(time)
 
-    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+    performance = db.execute('SELECT "PERFORMANCE" from "PL6_Daily" order by "DATETIME" DESC limit 1')
 
     for row in performance:
-        id = row['Performance']
+        id = row['PERFORMANCE']
         print(id)
 
 
 
     # print(performance.fetchall())
 
-    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    current = db.execute('SELECT "MOTOR CURRENT" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     
     for row in current:
-        cu = row['current']
+        cu = row['MOTOR CURRENT']
         print(cu)
 
-    print(current)
+    # print(current)
 
+    econ = db.execute('SELECT TO_CHAR("ELECTRIC CONS", $$9999D99$$) AS "ELECTRIC CONS" from "PL6_Daily" order by "DATETIME" DESC limit 1')
+        
+    for row in econ:
+        ec = row['ELECTRIC CONS']
+        print(ec)
 
-    return render_template("realtime4.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
+    print(ec)
+
+    return render_template("realtime4.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
 @app.route('/realtime5')
 def realtime5():
     
-    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = db.execute('SELECT "FORMULA","DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     date = date.first()[0]
     print(date)
 
-    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = db.execute('SELECT "DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     time = time.first()[0]
     print(time)
 
-    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+    performance = db.execute('SELECT "PERFORMANCE" from "PL6_Daily" order by "DATETIME" DESC limit 1')
 
     for row in performance:
-        id = row['Performance']
+        id = row['PERFORMANCE']
         print(id)
 
 
 
     # print(performance.fetchall())
 
-    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    current = db.execute('SELECT "MOTOR CURRENT" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     
     for row in current:
-        cu = row['current']
+        cu = row['MOTOR CURRENT']
         print(cu)
 
-    print(current)
+    # print(current)
 
+    econ = db.execute('SELECT TO_CHAR("ELECTRIC CONS", $$9999D99$$) AS "ELECTRIC CONS" from "PL6_Daily" order by "DATETIME" DESC limit 1')
+        
+    for row in econ:
+        ec = row['ELECTRIC CONS']
+        print(ec)
 
-    return render_template("realtime5.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
+    print(ec)
+
+    return render_template("realtime5.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
 @app.route('/realtime6')
 def realtime6():
     
-    date = db.execute('SELECT "Formula","DateTime" from showall order by "DateTime" DESC limit 1')
+    date = db.execute('SELECT "FORMULA","DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     date = date.first()[0]
     print(date)
 
-    time = db.execute('SELECT "DateTime" from showall order by "DateTime" DESC limit 1')
+    time = db.execute('SELECT "DATETIME" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     time = time.first()[0]
     print(time)
 
-    performance = db.execute('SELECT "Performance" from showall order by "DateTime" DESC limit 1')
+    performance = db.execute('SELECT "PERFORMANCE" from "PL6_Daily" order by "DATETIME" DESC limit 1')
 
     for row in performance:
-        id = row['Performance']
+        id = row['PERFORMANCE']
         print(id)
 
 
 
     # print(performance.fetchall())
 
-    current = db.execute('SELECT "current" from showall order by "DateTime" DESC limit 1')
+    current = db.execute('SELECT "MOTOR CURRENT" from "PL6_Daily" order by "DATETIME" DESC limit 1')
     
     for row in current:
-        cu = row['current']
+        cu = row['MOTOR CURRENT']
         print(cu)
 
-    print(current)
+    # print(current)
 
+    econ = db.execute('SELECT TO_CHAR("ELECTRIC CONS", $$9999D99$$) AS "ELECTRIC CONS" from "PL6_Daily" order by "DATETIME" DESC limit 1')
+        
+    for row in econ:
+        ec = row['ELECTRIC CONS']
+        print(ec)
 
-    return render_template("realtime6.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu)
+    print(ec)
+
+    return render_template("realtime6.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
 
 
@@ -230,19 +267,19 @@ def realtime6():
 def test():
 
     atday=request.form.get("atday")
-    atday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"atday":atday})
+    atday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :atday GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"atday":atday})
    
 
     startday=request.form.get("startday")
     endday=request.form.get("endday")
-    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
+    per = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday AND :endday GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     # print(maxday)
 
@@ -255,19 +292,32 @@ def test():
     # print(percent)
     print(atday)
 
-    
-   
-
     return render_template("test.html",per=per,maxday=maxday,minday=minday,percent=percent,atday=atday)
+
+
+@app.route('/selectDate', methods=["POST","GET"])
+def selectDate():
+    selectDate =  request.form['atday'];
+    print(selectDate)
+
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectDate  GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC ',{"selectDate":selectDate})
+    maxday = maxday.fetchall()
+
+    return json.dumps({'status':'OK','DATA': maxday,'date' : selectDate})
+    return request.form['atday']
 
 
 @app.route('/testday', methods=["POST", "GET"])
 def testday():
 
-    # Max and min day limit in calendar
-    startday =      request.form.get("startday")
-    endday =        request.form.get("endday")
 
+    # Show performance after query
+    
+    selectday =     request.form.get("atday")
+    selectformula = request.form.get("formulavalue")
+    selectshift =   request.form.get("shiftvalue")
+
+    # Max and min day limit in calendar
     minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
@@ -277,31 +327,35 @@ def testday():
     # print(maxday)
 
     # List formula in drop down list
-    formula = db.execute('SELECT DISTINCT "FORMULA" FROM "PL6_Daily"').fetchall()
+    formula = db.execute('SELECT DISTINCT "FORMULA" , TO_CHAR("DATETIME", $$YYYY-MM-DD$$) AS "DATETIME" FROM "PL6_Daily" WHERE TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :selectdate',{"selectdate":selectday}).fetchall()
 
     # List shift in drop down list
-    shift = db.execute('SELECT DISTINCT "SHIFT" FROM "PL6_Daily"').fetchall()
+    shift = db.execute('select DISTINCT "FORMULA", "SHIFT", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME" from "PL6_Daily" where TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :dayy AND "FORMULA" = :formula ',{"dayy":selectday,"formula":selectformula}).fetchall()
     
-    # Show performance after query
-    
-    selectday =     request.form.get("atday")
-    selectformula = request.form.get("formulavalue")
-    selectshift =   request.form.get("shiftvalue")
+    # sentDate =      request.form.get("atday")
 
-    print("formula : "+selectformula)
-    print("shift : "+selectshift)
-    print("day : "+selectday)
+    print(selectday)
 
-    performance = db.execute('SELECT DISTINCT "FORMULA" ,"SHIFT", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ' ).fetchall()
+    # print("formula : "+selectformula)
+    # print("shift : "+selectshift)
+    # print("day : "+selectday)
+
+    performance = db.execute('SELECT DISTINCT "FORMULA" ,"SHIFT", TO_CHAR("PERFORMANCE", $$999d99$$) AS "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ' ).fetchall()
     for d in performance:
         performance = d['PERFORMANCE']
 
-    print(performance)
+    # print(performance)
 
 
-    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE" FROM "PL6_Daily" WHERE "FORMULA" = :formula  AND TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :ezday  AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift,"ezday":selectday} ).fetchall()
-    print(test)
-    # perform = db.execute('SELECT DISTINCT "FORMULA", "DATETIME","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectday AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ',{"selectday": selectday, "selectshift": selectshift, "selectformula": selectformula} )
+    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE", to_char("MOTOR CURRENT"::real, $$9999D99$$) as "MCUR", to_char("STEAM CONSUMPTION"::real, $$999D99$$) as "SCON",to_char("ELECTRIC CONS"::real, $$999D99$$) as "ECON", to_char("%LOAD"::real, $$999D99$$) as "LOAD", "TOTAL_FEED" FROM "PL6_Daily" WHERE "FORMULA" = :formula  AND TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :ezday  AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift,"ezday":selectday} ).fetchall()
+    # print(test)
+    # for tz in test:
+    #     test1 = tz['PERFORMANCE']
+
+    # print(test1)
+
+    # print(performance)
+    # perform = db.execute('SELECT DISTINCT "FORMULA", "DATETIME","SHIFT", ("DATETIME"::timestamp::date) as "DATETIME", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectday AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ',{"selectday": selectday, "selectshift": selectshift, "selectformula": selectformula} )
     # print(perform)
     # for p in perform:
     #     performa = p['PERFORMANCE']
@@ -311,7 +365,7 @@ def testday():
     db.commit()
     db.close()
 
-    return render_template("testday.html",maxday=maxday,minday=minday,formula=formula,shift=shift,performance=performance)
+    return render_template("testday.html",maxday=maxday,minday=minday,selectday=selectday,selectformula=selectformula,selectshift=selectshift,formula=formula,shift=shift,performance=performance,test=test)
     return request.form['formulavalue','shiftvalue']
 
 @app.route('/testweek', methods=["POST", "GET"])
@@ -324,23 +378,25 @@ def testweek():
     connection = engine.raw_connection()
     cur = connection.cursor()
 
-    # theweek = cur.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = $$:atweek$$ group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$)',{"atweek": atweek})
+    # theweek = cur.execute('SELECT TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) as "DATETIME", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from "PL6_Daily" where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) = $$:atweek$$ group by TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$)',{"atweek": atweek})
 
     # theweek = cur.fetchone()
 
     # print(theweek)
 
-    theweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = TO_CHAR("DateTime" :: DATE, :atweek) group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
+    theweek = db.execute('SELECT TO_CHAR("DATETIME"::timestamp::date, $$YYYY-"W"WW$$),"FORMULA", ROUND(AVG("PERFORMANCE"::BIGINT),2) AS "PERFORMANCE" from "PL6_Daily" where TO_CHAR("DATETIME"::timestamp::date, $$YYYY-"W"WW$$) = :atweek group by TO_CHAR("DATETIME"::timestamp::date, $$YYYY-"W"WW$$),"FORMULA"ORDER BY TO_CHAR("DATETIME"::timestamp::date, $$YYYY-"W"WW$$) ',{"atweek": atweek})
     # theweek = theweek.first()[0]
+    for i in theweek:
+        daweek = i['PERFORMANCE']
 
-    # cur.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from showall where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) = $$atweek$$ group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
+    # cur.execute('SELECT TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) as "DATETIME", "Formula", ROUND(AVG("Performance"),2) as "Performance", "Status" from "PL6_Daily" where "Status" NOT IN ($$Stop$$, $$MinnorStop$$, $$IdleRun$$, $$Startup&Cleanline$$) AND TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) = $$atweek$$ group by TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$), "Status","Formula" order by TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) ',{"atweek": atweek})
     # theweek = cur.fetchall()
 
-    minweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime" from showall group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) order by "DateTime" ASC limit 1')
+    minweek = db.execute('SELECT TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) as "DATETIME" from "PL6_Daily" group by TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) order by "DATETIME" ASC limit 1')
     minweek = minweek.first()[0]
     # print(minweek)
 
-    maxweek = db.execute('SELECT TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) as "DateTime" from showall group by TO_CHAR("DateTime" :: DATE, $$YYYY-"W"WW$$) order by "DateTime" DESC limit 1 ')
+    maxweek = db.execute('SELECT TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) as "DATETIME" from "PL6_Daily" group by TO_CHAR("DATETIME" :: DATE, $$YYYY-"W"WW$$) order by "DATETIME" DESC limit 1 ')
     maxweek = maxweek.first()[0]
     # print(maxweek)
 
@@ -360,31 +416,14 @@ def testweek():
 
 @app.route('/testmonth', methods=["POST", "GET"])
 def testmonth():
-    startday=request.form.get("startday")
-    endday=request.form.get("endday")
-    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
-    # per = per.first()[0]
+    selectmonth = request.form.get('pickmonth')
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
-    minday = minday.first()[0]
-    # print(minday)
+    print(selectmonth)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
-    maxday = maxday.first()[0]
-    # print(maxday)
 
-    percent=request.form.get("percent")
 
-    db.commit()
-    # print(startday) 
-    # print(endday)
-    # print(per)
-    # print(percent)
+    return render_template("testmonth.html")
 
-    
-   
-
-    return render_template("testmonth.html",per=per,maxday=maxday,minday=minday,percent=percent)
 
 
 @app.route('/machine13', methods=["POST", "GET"])
@@ -392,15 +431,15 @@ def machine13():
 
     startday13=request.form.get("startday13")
     endday13=request.form.get("endday13")
-    per13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday13 AND :endday13 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
+    per13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday13 AND :endday13 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
     
     # per = per.first()[0]
 
-    minday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday13 = minday13.first()[0]
     # print(minday)
 
-    maxday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday13 = maxday13.first()[0]
 
     
@@ -412,15 +451,15 @@ def machine46():
 
     startday46=request.form.get("startday46")
     endday46=request.form.get("endday46")
-    per46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday46 AND :endday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
+    per46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday46 AND :endday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
     
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     
     return render_template("machine46.html",per46=per46,maxday=maxday,minday=minday)
@@ -430,7 +469,7 @@ def machine46():
 def machine13day():
 
     atday=request.form.get("atday")
-    atday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"atday":atday})
+    atday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :atday GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"atday":atday})
     # atdayy = atday
     # for d in atdayy:
     #     atdayy = d['Performance']
@@ -438,14 +477,14 @@ def machine13day():
     startday=request.form.get("startday")
     endday=request.form.get("endday")
     
-    per = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday AND :endday GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
+    per = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday AND :endday GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     # print(maxday)
 
@@ -466,15 +505,15 @@ def machine13week():
 
     startday13=request.form.get("startday13")
     endday13=request.form.get("endday13")
-    per13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday13 AND :endday13 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
+    per13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday13 AND :endday13 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
     
     # per = per.first()[0]
 
-    minday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday13 = minday13.first()[0]
     # print(minday)
 
-    maxday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday13 = maxday13.first()[0]
 
     
@@ -485,15 +524,15 @@ def machine13month():
 
     startday13=request.form.get("startday13")
     endday13=request.form.get("endday13")
-    per13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday13 AND :endday13 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
+    per13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday13 AND :endday13 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday13": startday13, "endday13": endday13}) 
     
     # per = per.first()[0]
 
-    minday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday13 = minday13.first()[0]
     # print(minday)
 
-    maxday13 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday13 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday13 = maxday13.first()[0]
 
     
@@ -506,17 +545,17 @@ def machine46day():
     endday46=request.form.get("endday46")
     atday46=request.form.get("atday46")
 
-    atday46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE ("DateTime"::timestamp::date) = :atday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"atday46":atday46})
+    atday46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :atday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"atday46":atday46})
 
-    per46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday46 AND :endday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
+    per46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday46 AND :endday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
     
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     
     return render_template("machine46day.html",per46=per46,maxday=maxday,minday=minday,atday46=atday46)
@@ -526,15 +565,15 @@ def machine46week():
 
     startday46=request.form.get("startday46")
     endday46=request.form.get("endday46")
-    per46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday46 AND :endday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
+    per46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday46 AND :endday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
     
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     
     return render_template("machine46week.html",per46=per46,maxday=maxday,minday=minday)
@@ -544,15 +583,15 @@ def machine46month():
 
     startday46=request.form.get("startday46")
     endday46=request.form.get("endday46")
-    per46 = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime", ROUND(AVG("Performance"),2) as "Performance" FROM showall WHERE "DateTime" BETWEEN :startday46 AND :endday46 GROUP BY date("DateTime") ORDER BY date("DateTime") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
+    per46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday46 AND :endday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
     
     # per = per.first()[0]
 
-    minday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") ASC limit 1 ')
+    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
-    maxday = db.execute('SELECT ("DateTime"::timestamp::date) as "DateTime" FROM showall GROUP BY date("DateTime") ORDER BY date("DateTime") DESC limit 1 ')
+    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
     
     return render_template("machine46month.html",per46=per46,maxday=maxday,minday=minday)

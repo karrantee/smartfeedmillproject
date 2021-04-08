@@ -1,0 +1,25 @@
+SELECT DISTINCT "FORMULA","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$567SF-SWD$$ AND "SHIFT" = $$S3$$ GROUP BY "FORMULA", date("DATETIME"),"SHIFT","PERFORMANCE" ORDER BY date("DATETIME")
+
+SELECT DISTINCT "FORMULA","SHIFT", ("DATETIME"::timestamp::date) as "DateTime", "PERFORMANCE" 
+FROM "PL6_Daily" 
+WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ 
+AND "FORMULA" = $$567SF-SWD$$ 
+AND "SHIFT" = $$S3$$ 
+GROUP BY "FORMULA", date("DATETIME"),"SHIFT","PERFORMANCE" 
+ORDER BY date("DATETIME")
+
+-Convert all
+SELECT to_char("DATETIME"::timestamp, 'YYYY-MM-DD'),"SHIFT", "FORMULA","PERFORMANCE",
+to_char("MOTOR CURRENT"::real, '9999D99') as "MCUR", to_char("STEAM CONSUMPTION"::real, '999D99') as "SCON",
+to_char("ELECTRIC CONS"::real, '999D99') as "ECON", to_char("%LOAD"::real, '999D99') as "LOAD", "TOTAL_FEED"
+from "PL6_Daily"
+
+-test
+select DISTINCT "FORMULA", "SHIFT", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME", AVG ("PERFORMANCE")::NUMERIC(10,2) as "PERFORMANCE" from "PL6_Daily" where TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = $$2020-01-03$$ AND "FORMULA" = $$552F-WD PIG GRW2$$ GROUP BY "FORMULA","SHIFT","DATETIME","PERFORMANCE" 
+
+select DISTINCT "FORMULA", "SHIFT", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME" from "PL6_Daily" where TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = $$2020-01-03$$ AND "FORMULA" = $$552F-WD PIG GRW2$$
+
+select TO_CHAR("DATETIME"::timestamp::date, $$YYYY-WW$$),"FORMULA", ROUND(AVG("PERFORMANCE"::BIGINT),2) from "PL6_Daily"
+where TO_CHAR("DATETIME"::timestamp::date, $$YYYY-WW$$) = $$2020-01$$ 
+group by TO_CHAR("DATETIME"::timestamp::date, $$YYYY-WW$$),"FORMULA"
+ORDER BY TO_CHAR("DATETIME"::timestamp::date, $$YYYY-WW$$) ASC
