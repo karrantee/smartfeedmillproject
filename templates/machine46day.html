@@ -7,27 +7,70 @@
    {% block content %}
    <div class="page">
       <div class="main" style="text-align: center;">
-
-         <!-- <h1 style="color:White;">Welcome to Test Page</h1> -->
-         <!-- <h1>Welcome to Test Page</h1> -->
-         <!-- {% for i in people %}
-
-         <p>User name is : {{i.username}}</p>
-         <p>Email is :{{i.email}}</p>
-         <a class="btn btn-primary" href="/post-details/{{i.id}}" role="button">See More</a>
-         
-
-         {% endfor %}-->
-         <!-- <h1>เลือกช่วงเวลา</h1> -->
           <div class="box">
             <div class="test2">
-            <form action="{{ url_for('machine46day')}}" method="post">
-               
-               <label for="startday">เลือกวันที่ : </label>
-               
-               <input type="date" id="atday46" name="atday46" value={{maxday}} min={{minday}} max={{maxday}}>
-               <input type="submit">
-            </form>
+              <form role="form" name="formy" action="{{ url_for('machine46day')}}" method="post">
+      
+      
+                <label for="atday">Select Date :</label>
+      
+                <!-- <input type="date" id="atday" onchange="_selectDate(this.value)" name="atday" value={{minday}} min={{minday}}
+                  max={{maxday}}> -->
+      
+                <input type="date" id="atday" onchange="this.form.submit(this.value)" name="atday" value={{selectday}} min={{minday}}
+                max={{maxday}}>
+      
+                <script>
+                  function testy(e){
+                    console.log(e)
+                    document.getElementById("atday").submit();
+                  }
+                </script>
+      
+                <label for="formula">Select Formula :</label>
+      
+                <select id="formulavalue" name="formulavalue" onchange="this.form.submit(this.value)" value= "">
+      
+                  <option value="{{selectformula}}" > {{selectformula}} </option>
+                  <option disabled >- - - - - - -</option>
+                  {%for i in formula%}
+      
+                  <option value="{{i.FORMULA|e}}">{{i.FORMULA|e}}</option>
+      
+                  {% endfor %}
+                </select>
+      
+      
+      
+                <label for="atday">Select Shift :</label>
+                
+                <select name="shiftvalue" value= "{{selectshift}}">
+                  {% for s in shift %}
+                  <option value="{{s.SHIFT}}">{{s.SHIFT}}</option>
+                  {% endfor %}
+                </select>
+                <!-- <p id="shift"></p>
+                      <input type="text" name="shiftvalue"/> -->
+      
+                <!-- <script>
+                        function svselect()
+                        {
+                          var d = document.getElementById("shift");
+                          var display = d.options[d.selectedIndex].text;
+                          document.getElementById("shiftvalue").value = display;
+                          document.getElementById("shiftvalue").value = document.getElementById("shift").value;
+                        }
+                      </script> -->
+      
+      
+      
+                <input type="submit">
+      
+      
+                <p style="margin-bottom: 0;"> Date : {{selectday}} , Formula : {{selectformula}}, Shift : {{selectshift}}</p>
+      
+      
+              </form>
             </div>
 
             <div class="row">
@@ -44,42 +87,32 @@
                   </div>
 
                   <!-- Performance -->
-                  <div class="column b" >
+                  <div class="column b">
                     <h4>Performance</h4>
-
-                      <div class="column c" >
-                        <p>Performance Cap.</br>19 ton/h </p>
-                        <p>Electrical cons TG.</br>>14Kwh/t </p>
-                        <p>Motor current.</br>Full load 420 Amp </p>
-                        <p>% Load </p>
+        
+                    <div class="column c">
+                      <p>Performance Cap.</br>19 ton/h </p>
+                      <p>Electrical cons TG.</br>>14Kwh/t </p>
+                      <p>Motor current.</br>Full load 420 Amp </p>
+                      <p>% Load </p>
+                    </div>
+        
+                    <div class="column c" style="margin: 0; padding:0">
+                      {% for x in test%}
+                      <p style="margin: 0;">{{x.PERFORMANCE}}</p>
+                      <progress max="19" value={{x.PERFORMANCE}} ></progress>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{x.PERFORMANCE}} aria-valuemin="0" aria-valuemax="19" style="width:50%;">
+                          {{x.PERFORMANCE}}
+                        </div>
                       </div>
-
-                      <div class="column c" >
-                        {% for i in atday46%}
-                        <p>{{i.Performance}}</br> 19 ton/h </p>
-                        {% endfor %}
-                        <p>Status bar</br>>14Kwh/t </p>
-                        <p>Status bar</br>Full load 420 Amp </p>
-                        <p>Status bar</p>
-                      </div>
-
-                      <script>
-                        $('.skill-per').each(function(){
-                          var $this = $(this);
-                          var per = $this.attr('per');
-                          $this.css("width",per+'%');
-                          $({animatedValue: 0}).animate({animatedValue: per},{
-                            duration: 1000,
-                            step: function(){
-                              $this.attr('per', Math.floor(this.animatedValue) + '%');
-                            },
-                            complete: function(){
-                              $this.attr('per', Math.floor(this.animatedValue) + '%');
-                            }
-                          });
-                        });
-                      </script>
-                  
+                      <p>{{x.ECON}}</br>>14Kwh/t </p>
+                      <p>{{x.MCUR}}</br>Full load 420 Amp </p>
+                      <p>{{x.LOAD}}</p>
+                      {% endfor %}
+                    </div>
+        
+                    <!-- <img class="column img" src="/static/image/doggo.jpg"   alt="doggo"> -->
                   </div>
                   
                   <!-- Steam -->
@@ -147,7 +180,7 @@
                         <p>% Load </p>
                       </div>
 
-                      <div class="column c" style="background-color: bisque;" >
+                      <div class="column c">
                         <p>Performance Cap.</br>19 ton/h </p>
                         <p>Electrical cons TG.</br>>14Kwh/t </p>
                         <p>Motor current.</br>Full load 420 Amp </p>
@@ -167,7 +200,7 @@
                       <p>% Load </p>
                     </div>
 
-                    <div class="column c" style="background-color: bisque;" >
+                    <div class="column c">
                       <p>Performance Cap.</br>19 ton/h </p>
                       <p>Electrical cons TG.</br>>14Kwh/t </p>
                       <p>Motor current.</br>Full load 420 Amp </p>
@@ -185,7 +218,7 @@
                         <p>% Load </p>
                       </div>
 
-                      <div class="column c" style="background-color: bisque;" >
+                      <div class="column c">
                         <p>Performance Cap.</br>19 ton/h </p>
                         <p>Electrical cons TG.</br>>14Kwh/t </p>
                         <p>Motor current.</br>Full load 420 Amp </p>

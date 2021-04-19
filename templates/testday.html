@@ -67,7 +67,7 @@
           <input type="submit">
 
 
-          <p> Date : {{selectday}} , Formula : {{selectformula}}, Shift : {{selectshift}}</p>
+          <p style="margin-bottom: 0;"> Date : {{selectday}} , Formula : {{selectformula}}, Shift : {{selectshift}}</p>
 
 
         </form>
@@ -101,6 +101,7 @@
             <div class="column c" style="margin: 0; padding:0">
               {% for x in test%}
               <p>{{x.PERFORMANCE}}</p>
+              <progress max="19" value={{x.PERFORMANCE}} ></progress>
               <p>{{x.ECON}}</br>>14Kwh/t </p>
               <p>{{x.MCUR}}</br>Full load 420 Amp </p>
               <p>{{x.LOAD}}</p>

@@ -541,24 +541,62 @@ def machine13month():
 @app.route('/machine46day', methods=["POST", "GET"])
 def machine46day():
 
-    startday46=request.form.get("startday46")
-    endday46=request.form.get("endday46")
-    atday46=request.form.get("atday46")
-
-    atday46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :atday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"atday46":atday46})
-
-    per46 = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday46 AND :endday46 GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday46": startday46, "endday46": endday46}) 
+   # Show performance after query
     
-    # per = per.first()[0]
+    selectday =     request.form.get("atday")
+    selectformula = request.form.get("formulavalue")
+    selectshift =   request.form.get("shiftvalue")
 
+    # Max and min day limit in calendar
     minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
     minday = minday.first()[0]
     # print(minday)
 
     maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
     maxday = maxday.first()[0]
+    # print(maxday)
+
+    # List formula in drop down list
+    formula = db.execute('SELECT DISTINCT "FORMULA" , TO_CHAR("DATETIME", $$YYYY-MM-DD$$) AS "DATETIME" FROM "PL6_Daily" WHERE TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :selectdate',{"selectdate":selectday}).fetchall()
+
+    # List shift in drop down list
+    shift = db.execute('select DISTINCT "FORMULA", "SHIFT", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME" from "PL6_Daily" where TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :dayy AND "FORMULA" = :formula ',{"dayy":selectday,"formula":selectformula}).fetchall()
     
-    return render_template("machine46day.html",per46=per46,maxday=maxday,minday=minday,atday46=atday46)
+    # sentDate =      request.form.get("atday")
+
+    print(selectday)
+
+    # print("formula : "+selectformula)
+    # print("shift : "+selectshift)
+    # print("day : "+selectday)
+
+    performance = db.execute('SELECT DISTINCT "FORMULA" ,"SHIFT", TO_CHAR("PERFORMANCE", $$999d99$$) AS "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = $$2020-01-03$$ AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ' ).fetchall()
+    for d in performance:
+        performance = d['PERFORMANCE']
+
+    # print(performance)
+
+
+    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE", to_char("MOTOR CURRENT"::real, $$9999D99$$) as "MCUR", to_char("STEAM CONSUMPTION"::real, $$999D99$$) as "SCON",to_char("ELECTRIC CONS"::real, $$999D99$$) as "ECON", to_char("%LOAD"::real, $$999D99$$) as "LOAD", "TOTAL_FEED" FROM "PL6_Daily" WHERE "FORMULA" = :formula  AND TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :ezday  AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift,"ezday":selectday} ).fetchall()
+    # print(test)
+    # for tz in test:
+    #     test1 = tz['PERFORMANCE']
+
+    # print(test1)
+
+    # print(performance)
+    # perform = db.execute('SELECT DISTINCT "FORMULA", "DATETIME","SHIFT", ("DATETIME"::timestamp::date) as "DATETIME", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectday AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ',{"selectday": selectday, "selectshift": selectshift, "selectformula": selectformula} )
+    # print(perform)
+    # for p in perform:
+    #     performa = p['PERFORMANCE']
+
+    # print(performa)
+   
+    db.commit()
+    db.close()
+    
+    return render_template("machine46day.html",maxday=maxday,minday=minday,selectday=selectday,selectformula=selectformula,selectshift=selectshift,formula=formula,shift=shift,performance=performance,test=test)
+    return request.form['formulavalue','shiftvalue']
 
 @app.route('/machine46week', methods=["POST", "GET"])
 def machine46week():
