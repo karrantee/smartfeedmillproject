@@ -44,7 +44,10 @@
       
                 <label for="atday">Select Shift :</label>
                 
-                <select name="shiftvalue" value= "{{selectshift}}">
+                <select name="shiftvalue" value= "{{selectshift}}" onchange="this.form.submit(this.value)" value= "">
+
+                  <option value="{{selectshift}}" > {{selectshift}} </option>
+                  <option disabled >- - - - - - -</option>
                   {% for s in shift %}
                   <option value="{{s.SHIFT}}">{{s.SHIFT}}</option>
                   {% endfor %}
@@ -92,23 +95,54 @@
         
                     <div class="column c">
                       <p>Performance Cap.</br>19 ton/h </p>
-                      <p>Electrical cons TG.</br>>14Kwh/t </p>
+                      <p>Electrical cons TG.</br>14Kwh/t </p>
                       <p>Motor current.</br>Full load 420 Amp </p>
                       <p>% Load </p>
                     </div>
         
                     <div class="column c" style="margin: 0; padding:0">
+
                       {% for x in test%}
-                      <p style="margin: 0;">{{x.PERFORMANCE}}</p>
-                      <progress max="19" value={{x.PERFORMANCE}} ></progress>
                       <div class="progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{x.PERFORMANCE}} aria-valuemin="0" aria-valuemax="19" style="width:50%;">
+                        <div class="progress-bar progress-bar-info" role="progressbar" id="hax" onchange="color()" aria-valuenow={{x.PERFORMANCE}} aria-valuemin="0" aria-valuemax="19" style="width:{{(x.PERFORMANCE*100)/19}}%;">
                           {{x.PERFORMANCE}}
                         </div>
                       </div>
-                      <p>{{x.ECON}}</br>>14Kwh/t </p>
-                      <p>{{x.MCUR}}</br>Full load 420 Amp </p>
-                      <p>{{x.LOAD}}</p>
+
+                      <script>
+                        function color() {
+
+                          var xx = document.getElementById("hax");
+                          if (xx < 10) {
+                            hax.style.backgroundColor = "red";
+                          } else if (xx < 14) {
+                            hax.style.backgroundColor = "red";
+                          } else {
+                            hax.style.backgroundColor = "red";
+                          }
+                        }
+
+                      </script>
+
+                      <div class="progress" style="margin: 5px 5px 40px 5px;">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{x.ECON}} aria-valuemin="0" aria-valuemax="14" style="width:{{(x.ECON|int *100)/14}}%;">
+                          {{x.ECON}}
+                        </div>
+                      </div>
+
+                      <div class="progress" style="margin: 15px 5px 35px 5px;">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{x.MCUR}} aria-valuemin="0" aria-valuemax="420" style="width:{{(x.MCUR|int *100)/420}}%;">
+                          {{x.MCUR}}
+                        </div>
+                      </div>
+
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow={{x.LOAD}} aria-valuemin="0" aria-valuemax="100" style="width:{{(x.LOAD|int *100)/100}}%;">
+                          {{x.LOAD}}
+                        </div>
+                      </div>
+                      
+
                       {% endfor %}
                     </div>
         

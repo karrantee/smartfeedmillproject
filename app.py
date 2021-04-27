@@ -575,23 +575,22 @@ def machine46day():
         performance = d['PERFORMANCE']
 
     # print(performance)
+    # print(type(performance))
+    # perf = float(performance)
+    # print(perf)
+    # print(type(perf))
+
+    # perfbar = int((perf * 100) / 19)
+    # print(perfbar)
+    
+
+    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE", to_char("MOTOR CURRENT"::real, $$9999D99$$) as "MCUR", to_char("STEAM CONSUMPTION"::real, $$999D99$$) as "SCON",to_char("ELECTRIC CONS"::real, $$999.99$$) as "ECON", to_char("%LOAD"::real, $$999D99$$) as "LOAD", "TOTAL_FEED" FROM "PL6_Daily" WHERE "FORMULA" = :formula  AND TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :ezday  AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift,"ezday":selectday} ).fetchall()
+    for x in test:
+        pera = x['PERFORMANCE']
+    
+    
 
 
-    test = db.execute('SELECT DISTINCT "FORMULA", TO_CHAR("DATETIME", $$YYYY-MM-DD$$) as "DATETIME","SHIFT","PERFORMANCE", to_char("MOTOR CURRENT"::real, $$9999D99$$) as "MCUR", to_char("STEAM CONSUMPTION"::real, $$999D99$$) as "SCON",to_char("ELECTRIC CONS"::real, $$999D99$$) as "ECON", to_char("%LOAD"::real, $$999D99$$) as "LOAD", "TOTAL_FEED" FROM "PL6_Daily" WHERE "FORMULA" = :formula  AND TO_CHAR("DATETIME", $$YYYY-MM-DD$$) = :ezday  AND "SHIFT" = :shift ' , {"formula": selectformula,"shift":selectshift,"ezday":selectday} ).fetchall()
-    # print(test)
-    # for tz in test:
-    #     test1 = tz['PERFORMANCE']
-
-    # print(test1)
-
-    # print(performance)
-    # perform = db.execute('SELECT DISTINCT "FORMULA", "DATETIME","SHIFT", ("DATETIME"::timestamp::date) as "DATETIME", "PERFORMANCE" from "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :selectday AND "FORMULA" = $$553LF-WD PIG FIN1$$ AND "SHIFT" = $$S3$$  ',{"selectday": selectday, "selectshift": selectshift, "selectformula": selectformula} )
-    # print(perform)
-    # for p in perform:
-    #     performa = p['PERFORMANCE']
-
-    # print(performa)
-   
     db.commit()
     db.close()
     
