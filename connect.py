@@ -25,10 +25,10 @@ import psycopg2
 # conn.close()
 
 user = 'postgres'
-pwd = '12345'
-host = '127.0.0.1'
+pwd = 'plf@iot'
+host = '192.168.1.6'
 port = '5432'
-dbname = 'test'
+dbname = 'postgres'
 engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}')
 
 connection = engine.raw_connection()
@@ -85,8 +85,13 @@ db = scoped_session(sessionmaker(bind=engine))
 
 # print(er)
 
-date = db.execute('SELECT TO_CHAR("DATETIME", $$YYYY-MM-DD$$) from "PL6_Daily" order by "DATETIME" DESC limit 1').fetchone()
-print(date)
+# date = cur.execute('SELECT TO_CHAR("DATETIME", $$YYYY-MM-DD$$) from "PL6_Daily" limit 1').fetchall()
+# print(date)
+
+tro = db.execute('SELECT TO_CHAR("DATETIME", $$DD-MM-YYYY$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" limit 5 ').fetchall()
+print(tro)
+
+
 
 cur.close()
 

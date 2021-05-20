@@ -4,11 +4,20 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 import operation
 # import psycopg2
 
+#offline
+# user = 'postgres'
+# pwd = '12345'
+# host = '127.0.0.1'
+# port = '5432'
+# dbname = 'test'
+
+# online
 user = 'postgres'
-pwd = '12345'
-host = '127.0.0.1'
+pwd = 'plf@iot'
+host = '192.168.1.6'
 port = '5432'
-dbname = 'test'
+dbname = 'postgres'
+
 # engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}',pool_size=100, max_overflow=0)
 engine = create_engine(f'postgresql://{user}:{pwd}@{host}:{port}/{dbname}')
 db = scoped_session(sessionmaker(bind=engine))
@@ -266,33 +275,15 @@ def realtime6():
 @app.route('/test', methods=["POST", "GET"])
 def test():
 
-    atday=request.form.get("atday")
-    atday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE ("DATETIME"::timestamp::date) = :atday GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"atday":atday})
-   
+    tro = db.execute('SELECT TO_CHAR("DATETIME", $$DD-MM-YYYY$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" DESC limit 10 ').fetchall()
+    print(tro)
 
-    startday=request.form.get("startday")
-    endday=request.form.get("endday")
-    per = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME", ROUND(AVG("Performance"),2) as "Performance" FROM "PL6_Daily" WHERE "DATETIME" BETWEEN :startday AND :endday GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC LIMIT 1',{"startday": startday, "endday": endday}) 
-    # per = per.first()[0]
+    labels = [row[0] for row in tro]
+    values = [row[1] for row in tro]
 
-    minday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") ASC limit 1 ')
-    minday = minday.first()[0]
-    # print(minday)
 
-    maxday = db.execute('SELECT ("DATETIME"::timestamp::date) as "DATETIME" FROM "PL6_Daily" GROUP BY date("DATETIME") ORDER BY date("DATETIME") DESC limit 1 ')
-    maxday = maxday.first()[0]
-    # print(maxday)
 
-    percent=request.form.get("percent")
-
-    db.commit()
-    # print(startday) 
-    # print(endday)
-    # print(per)
-    # print(percent)
-    print(atday)
-
-    return render_template("test.html",per=per,maxday=maxday,minday=minday,percent=percent,atday=atday)
+    return render_template("test.html", labels=labels,values=values)
 
 
 @app.route('/selectDate', methods=["POST","GET"])

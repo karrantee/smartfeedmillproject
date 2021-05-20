@@ -1,0 +1,44 @@
+7s43WBp9zgwgw9n34PvrvWcb2qn5ygcb6qn5yg26drn5ygcb2qPdygcb26db2qng83pw4
+
+
+PDF reader
+
+Office
+Window authen
+ASP.net
+
+vpn:
+
+sslvpn.ftcs.in.th
+
+
+Group		Name		password
+FTCS-BAS	FTCS-BAS-VPN-07	Lq353VG=et8b/J4*
+
+The remote desktop server: 172.20.91.99
+
+
+DASHBOARD_FUJIT\SQLEXPRESS
+DASHBOARD_FUJIT\\SQLEXPRESS
+
+sa
+P@ssword
+
+postgredSQL 12.5
+user:postgres
+Password:plf@iot
+port 5432
+
+MySQL
+user:root
+P:plf@iot
+port 3666
+xport 33060
+
+mysql> CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost'
+    ->     WITH GRANT OPTION;
+mysql> CREATE USER 'monty'@'%' IDENTIFIED BY 'some_pass';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'monty'@'%'
+    ->     WITH GRANT OPTION;
+
