@@ -275,7 +275,8 @@ def realtime6():
 @app.route('/test', methods=["POST", "GET"])
 def test():
 
-    tro = db.execute('SELECT TO_CHAR("DATETIME", $$DD-MM-YYYY$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" DESC limit 10 ').fetchall()
+    # tro = db.execute('SELECT TO_CHAR("DATETIME", $$DD-MM-YYYY$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" DESC limit 10 ').fetchall()
+    tro = db.execute('SELECT TO_CHAR("DATETIME", $$HH24:MI:SS$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" DESC limit 10 ').fetchall()
     print(tro)
 
     labels = [row[0] for row in tro]

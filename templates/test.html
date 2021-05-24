@@ -6,7 +6,7 @@
 {% block content %}
 <div class="page">
   <div class="main" style="text-align: center;">
-    <div class="boxgraph">
+    <div class="boxgraph" style="margin-bottom: 20px;">
 
       <!-- <canvas id="testg" width="300" height="300"></canvas>
       <script>
@@ -31,7 +31,7 @@
         });
       </script> -->
 
-      <canvas id="line-chart" width="800" height="425"></canvas>
+      <canvas id="line-chart" width="800" height="375"></canvas>
         <script>
           new Chart(document.getElementById("line-chart"), {
             type: 'line',
@@ -76,7 +76,7 @@
 
     </div>
 
-    <div class="boxgraph">
+    <div class="boxgraph" style="margin-bottom: 20px; padding-bottom:10px;">
 
       <!-- <canvas id="testg" width="300" height="300"></canvas>
       <script>
@@ -101,7 +101,7 @@
         });
       </script> -->
 
-      <canvas id="line-charta" width="800" height="425"></canvas>
+      <canvas id="line-charta" width="800" height="375"></canvas>
         <script>
           new Chart(document.getElementById("line-charta"), {
             type: 'line',
@@ -124,8 +124,77 @@
             }
           });
         </script>
-
     </div>
+
+
+    <div class="boxgraph">
+      <p>hi</p>
+      <div id="preview">
+        <div id="preview-textfield" class="preview-textfield reset" style="font-size: 41px;"></div>
+      </div>
+      <canvas id="gauge" width="800" height="350"></canvas>
+      
+      <script>
+
+        var opts = {
+          angle: -0.03, // The span of the gauge arc
+          lineWidth: 0.21, // The line thickness
+          radiusScale: 1, // Relative radius
+          pointer: {
+            length: 0.55, // // Relative to gauge radius
+            strokeWidth: 0.084, // The thickness
+            color: 'rgb(223, 23, 23)' // Fill color
+          },
+          limitMax: false,     // If false, max value increases automatically if value > maxValue
+          limitMin: false,     // If true, the min value of the gauge will be fixed
+          colorStart: '#6FADCF',   // Colors
+          colorStop: '#8FC0DA',    // just experiment with them
+          strokeColor: '#E0E0E0',  // to see which ones work best for you
+          generateGradient: true,
+          percentColors: [[0.0, "#a9d70b" ], [0.50, "#f9c802"], [1.0, "#ff0000"]],
+          highDpiSupport: true,     // High resolution support
+          staticLabels: {
+            font: "10px sans-serif",  // Specifies font
+            labels: [0, 20, 50, 275, 300],  // Print labels at these values
+            color: "rgb(0, 255, 17)",  // Optional: Label text color
+            fractionDigits: 0  // Optional: Numerical precision. 0=round off.
+          },
+          staticZones: [
+          {strokeStyle: "#F03E3E", min: 0, max: 20}, // Red from 100 to 130
+          {strokeStyle: "#FFDD00", min: 21, max: 50}, // Yellow
+          {strokeStyle: "#30B32D", min: 51, max: 275}, // Green
+          {strokeStyle: "#FFDD00", min: 276, max: 290}, // Yellow
+          {strokeStyle: "#F03E3E", min: 291, max: 300}  // Red
+          ],
+          renderTicks: {
+            divisions: 5,
+            divWidth: 1.1,
+            divLength: 0.4,
+            divColor: '#6FADCF',
+            subDivisions: 3,
+            subLength: 0.4,
+            subWidth: 0.6,
+            subColor: '#6FADCF',
+          },
+        
+        };
+        var target = document.getElementById('gauge'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 300; // set max gauge value
+        gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 33; // set animation speed (32 is default value)
+        gauge.set(180); // set actual value
+
+       
+        
+
+      </script>
+
+      <!-- put in script -->
+      <!-- var valueshowvalue = document.getElementById('preview-textfield');
+      valueshowvalue.innerHTML = gauge.set(); -->
+    </div>
+
 
   </div>
 </div>

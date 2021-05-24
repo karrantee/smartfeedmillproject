@@ -88,7 +88,7 @@ db = scoped_session(sessionmaker(bind=engine))
 # date = cur.execute('SELECT TO_CHAR("DATETIME", $$YYYY-MM-DD$$) from "PL6_Daily" limit 1').fetchall()
 # print(date)
 
-tro = db.execute('SELECT TO_CHAR("DATETIME", $$DD-MM-YYYY$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" limit 5 ').fetchall()
+tro = db.execute('SELECT TO_CHAR("DATETIME", $$DD-MM-YYYY HH24:MI:SS$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" DESC limit 10 ').fetchall()
 print(tro)
 
 
