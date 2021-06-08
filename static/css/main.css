@@ -345,15 +345,18 @@ div.content {
 
 .column .bs {
   float: left;
-  width: 85%;
+  width: 90%;
   padding-top: 10px;
-  height: 233.33px;
+  height: 255px;
   /* background-color:#ff4242; */
+  background: linear-gradient(180deg, rgba(110,110,110,1) 0%, rgba(92,92,92,1) 93%);
   position: relative;
+  border-radius: 4%;
 }
 
 .column .bs h4 {
   margin-bottom: 10px;
+  padding-left: 10px;
 }
 
 .column .b h4 {
@@ -367,7 +370,8 @@ div.content {
   height: 200px;
   /* background-color:#62ff5d; */
   background-color: rgb(116, 57, 113, 0.2);
-  border-color: rgb(255, 189, 252);
+  /* background-color: none; */
+  border-color: rgb(0, 0, 0);
   border-width: 1px;
   border-style: solid;
   align-items: center;

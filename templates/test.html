@@ -155,16 +155,14 @@
           highDpiSupport: true,     // High resolution support
           staticLabels: {
             font: "10px sans-serif",  // Specifies font
-            labels: [0, 20, 50, 275, 300],  // Print labels at these values
+            labels: [0, 7, 10, 17],  // Print labels at these values
             color: "rgb(0, 255, 17)",  // Optional: Label text color
             fractionDigits: 0  // Optional: Numerical precision. 0=round off.
           },
           staticZones: [
-          {strokeStyle: "#F03E3E", min: 0, max: 20}, // Red from 100 to 130
-          {strokeStyle: "#FFDD00", min: 21, max: 50}, // Yellow
-          {strokeStyle: "#30B32D", min: 51, max: 275}, // Green
-          {strokeStyle: "#FFDD00", min: 276, max: 290}, // Yellow
-          {strokeStyle: "#F03E3E", min: 291, max: 300}  // Red
+          {strokeStyle: "#F03E3E", min: 0, max: 5}, // Red 
+          {strokeStyle: "#FFDD00", min: 5, max: 10}, // Yellow
+          {strokeStyle: "#30B32D", min: 10, max: 20}, // Green
           ],
           renderTicks: {
             divisions: 5,
@@ -172,18 +170,18 @@
             divLength: 0.4,
             divColor: '#6FADCF',
             subDivisions: 3,
-            subLength: 0.4,
+            subLength: 0.2,
             subWidth: 0.6,
-            subColor: '#6FADCF',
+            subColor: 'rgb(0,0,0)',
           },
         
         };
         var target = document.getElementById('gauge'); // your canvas element
         var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-        gauge.maxValue = 300; // set max gauge value
+        gauge.maxValue = 20; // set max gauge value
         gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
         gauge.animationSpeed = 33; // set animation speed (32 is default value)
-        gauge.set(180); // set actual value
+        gauge.set({{ performance | safe}}); // set actual value
 
        
         

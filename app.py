@@ -69,9 +69,6 @@ def home():
         ec = row['ELECTRIC CONS']
         print(ec)
 
-    print(ec)
-    
-
 
     return render_template("home.html",date=date,time=time,per=performance,cur=current,id=id,cu=cu,ec=ec)
 
@@ -283,8 +280,9 @@ def test():
     values = [row[1] for row in tro]
 
 
+    performance = db.execute('SELECT TO_CHAR("DATETIME", $$HH24:MI:SS$$) as "Datetime", "PERFORMANCE" FROM "PL6_Daily" ORDER BY "DATETIME" DESC limit 1 ').fetchall()
 
-    return render_template("test.html", labels=labels,values=values)
+    return render_template("test.html", labels=labels,values=values, performance=performance)
 
 
 @app.route('/selectDate', methods=["POST","GET"])
