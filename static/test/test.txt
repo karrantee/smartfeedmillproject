@@ -1,0 +1,42 @@
+#create new file with no index
+df['Datetime'] = pd.to_datetime(df['Datetime'])
+# pd.Series(["Datetime", "PL6_Formula_Name", "Shift"], dtype="string")
+# df.to_csv('./static/test/test.csv', columns=['Datetime','PL6_Formula_Name','Shift','PL6_Job_ID'] , index=False)
+df.to_csv('./static/test/test.csv', columns=['Datetime'] , index=False)
+df['Datetime'] =  pd.to_datetime(df['Datetime'], format='%d%b%Y %H:%M:%S')
+print(df, "\n")
+print(df['Datetime'].dtypes)
+
+with open('./static/test/test.csv','r') as file:
+    csv_reader = csv.reader(file)
+
+    for line in csv_reader:
+        print(line)
+        
+print(type(line))
+
+# df['Datetime'] =  pd.to_datetime(df['Datetime'], format='%d%b%Y %H:%M:%S')
+
+#read again
+# df1 = pd.read_csv('./static/test/test.csv',header=0)
+
+# print(df1)
+# print(df1.dtypes)
+
+#changing each column's type
+# dfc = df1.astype({"Datetime": pd.to_datetime, "PL6_Formula_Name": str, "Shift": str})
+# dfc =  pd.to_datetime(df1['Datetime'])
+# print(dfc)
+# print(dfc.dtypes)
+
+# print(df1.dtypes)
+
+
+# Write to new file
+# with open('./static/test/test.csv', 'r') as file:
+#     csv_reader = csv.reader(file)
+
+#     with open('./static/test/test2.csv', 'w') as new_file:
+#         csv_writer = csv.writer(new_file, delimiter=',')
+#         for line in csv_reader:
+#             csv_writer.writerow(line[0:3])
